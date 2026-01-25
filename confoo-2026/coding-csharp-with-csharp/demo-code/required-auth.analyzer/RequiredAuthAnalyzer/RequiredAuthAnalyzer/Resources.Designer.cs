@@ -19,7 +19,7 @@ namespace ProgrammerAL.Analyzers.RequiredAuthAnalyzer {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "17.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "18.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     internal class Resources {
@@ -84,33 +84,6 @@ namespace ProgrammerAL.Analyzers.RequiredAuthAnalyzer {
         internal static string ControllerRequiredAuthAnalyzerTitle {
             get {
                 return ResourceManager.GetString("ControllerRequiredAuthAnalyzerTitle", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Minimal API endpoint requires attribute to authenticate the user, or an attribute specifying no anonymous requests are allowed..
-        /// </summary>
-        internal static string MinimalApiRequiredAuthAnalyzerDescription {
-            get {
-                return ResourceManager.GetString("MinimalApiRequiredAuthAnalyzerDescription", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Minimal API endpoint &apos;{0}&apos; requires an attribute specifying authentication, or allow anonymous.
-        /// </summary>
-        internal static string MinimalApiRequiredAuthAnalyzerMessageFormat {
-            get {
-                return ResourceManager.GetString("MinimalApiRequiredAuthAnalyzerMessageFormat", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Minimal API endpoint requires authentication attribute.
-        /// </summary>
-        internal static string MinimalApiRequiredAuthAnalyzerTitle {
-            get {
-                return ResourceManager.GetString("MinimalApiRequiredAuthAnalyzerTitle", resourceCulture);
             }
         }
     }

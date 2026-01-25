@@ -15,7 +15,7 @@ with AL Rodriguez
 
 ---
 
-# About Me (AL Rodriguez)
+# About Me
 
 - @ProgrammerAL
 - https://ProgrammerAL.com

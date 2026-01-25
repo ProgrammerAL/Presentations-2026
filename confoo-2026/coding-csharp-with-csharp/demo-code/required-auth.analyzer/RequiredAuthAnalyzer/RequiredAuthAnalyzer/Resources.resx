@@ -129,16 +129,4 @@
     <value>Controller endpoint requires authentication attribute</value>
     <comment>The title of the diagnostic.</comment>
   </data>
-  <data name="MinimalApiRequiredAuthAnalyzerDescription" xml:space="preserve">
-    <value>Minimal API endpoint requires attribute to authenticate the user, or an attribute specifying no anonymous requests are allowed.</value>
-    <comment>An optional longer localizable description of the diagnostic.</comment>
-  </data>
-  <data name="MinimalApiRequiredAuthAnalyzerMessageFormat" xml:space="preserve">
-    <value>Minimal API endpoint '{0}' requires an attribute specifying authentication, or allow anonymous</value>
-    <comment>The format-able message the diagnostic displays.</comment>
-  </data>
-  <data name="MinimalApiRequiredAuthAnalyzerTitle" xml:space="preserve">
-    <value>Minimal API endpoint requires authentication attribute</value>
-    <comment>The title of the diagnostic.</comment>
-  </data>
 </root>
