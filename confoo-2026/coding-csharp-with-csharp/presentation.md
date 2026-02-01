@@ -25,11 +25,12 @@ with AL Rodriguez
 
 ---
 
-# Why are we here?
+# Why are we here? To Review!
 
-- Create C# analyzer with C#
-- Generate C# code with C#
-- Everything Mentioned is Free
+- C# analyzers
+- C# source code generation
+- How this is already built into C#
+  - Note: Everything Mentioned is Free
 
 ---
 
@@ -39,8 +40,22 @@ with AL Rodriguez
   - Big-Bang features added each year
   - Tech debt added over time
 * 2011: Roslyn Compiler released
-  - Full rewrite in C# with knowledge of how C# is used
-  - Added a compiler API
+  - Full rewrite in C#
+    - With knowledge of how C# is used
+  - Added hooks into the compilation process
+
+---
+
+# Roslyn Syntax Tree
+
+![90%](presentation-images/walkthrough-csharp-syntax-figure.png)
+
+---
+
+# Helpful Tools: Roslyn Syntax Visualization
+
+- https://sharplab.io
+- Extension in Visual Studio: https://learn.microsoft.com/en-us/dotnet/csharp/roslyn-sdk/syntax-visualizer
 
 ---
 
@@ -49,8 +64,7 @@ with AL Rodriguez
 - Keyword: Analyzer
 - Checks code for rules
   - Errors, Warnings, Suggestions, etc
-- Reads code syntax
-  - Not at all like reflection
+- Reads code syntax using syntax tree
 
 ---
 
@@ -69,15 +83,12 @@ with AL Rodriguez
 
 ---
 
-# Helpful Tools: Roslyn Syntax Visualization
-
-- https://sharplab.io
-- https://www.linqpad.net
-- Extension in Visual Studio: https://learn.microsoft.com/en-us/dotnet/csharp/roslyn-sdk/syntax-visualizer
-
----
-
 # Demo Time
+
+- Existing Analyzer:
+  - https://github.com/ProgrammerAL/required-auth.analyzer
+- Scenario:
+  - Require `[Authorize]`/`[Anonymous]` attribute in controller files
 
 ---
 
@@ -92,7 +103,7 @@ with AL Rodriguez
 
 - Generates files at compile time
 - Run when project is compiled
-- Difficult to share with people
+- Difficult to share with people and projects
 - Not recommended anymore
 
 ---
@@ -102,15 +113,15 @@ with AL Rodriguez
 - Code created in-memory at compile time
   - Can write to files if flag enabled in project, all or nothing
 - Additive only, cannot modify code
-- Same syntax for recognizing code
+- Written using same Roslyn Syntax Tree API as Analyzers
 
 ---
 
 # Are they used often? Yes!
 
-- Code analysis built-in is all Roslyn Analyzers
-- Many 3rd Party Analyzer NuGet packages
-- .NET Team adding them for AoT support, or just to remove reflection
+- .NET Team adding them for AoT support, or to remove reflection, for performance
+- Public List:
+  - https://github.com/amis92/csharp-source-generators
 
 ---
 
@@ -124,11 +135,22 @@ with AL Rodriguez
 # 2 Types of Source Generators
 
 - Incremental
-- 
+  - Always do this one
+  - Added in .NET 6
+  - v2 of the API
+- Non-Incremental
+  - Added in .NET 5
+  - v1 of the API
 
 ---
 
 # Demo Time
+
+- Existing Generator:
+  - https://github.com/ProgrammerAL/public-interface-generator
+- Scenario:
+  - Generate interface code from a class
+  - Only use it for internal interfaces needed for unit tests
 
 ---
 
