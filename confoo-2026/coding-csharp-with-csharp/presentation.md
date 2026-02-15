@@ -55,6 +55,7 @@ with AL Rodriguez
 # Helpful Tools: Roslyn Syntax Visualization
 
 - https://sharplab.io
+- Built into Rider: Syntax Tree Visualizer
 - Extension in Visual Studio: https://learn.microsoft.com/en-us/dotnet/csharp/roslyn-sdk/syntax-visualizer
 
 ---
@@ -96,15 +97,6 @@ with AL Rodriguez
 
 - Analyzers can edit code to comply with the rule
 - Analyzer generates the code change, user approves it
-
----
-
-# Source Code Generation: T4 Templates
-
-- Generates files at compile time
-- Run when project is compiled
-- Difficult to share with people and projects
-- Not recommended anymore
 
 ---
 
@@ -163,5 +155,7 @@ with AL Rodriguez
 
 ---
 
-![bg 70%](presentation-images/presentation_link_qrcode.png)
-![bg 70%](presentation-images/sessionize-feedback.png)
+# Session Content (left) / Feedback (right)
+
+![bg left 50%](presentation-images/presentation_link_qrcode.png)
+![bg right 50%](presentation-images/feedback-qr.png)
