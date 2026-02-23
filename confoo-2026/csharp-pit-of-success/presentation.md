@@ -29,17 +29,9 @@ with AL Rodriguez
 
 - Discuss a C# Pit of Success
   - Enforce code quality
-- Present ***Recommendations***
+- Present ***Recommendations*** for ***Concepts***
   - Please limit your yelling
 - All Free*
-
----
-
-# This session is a set of Recommendations:
-
-- Some build on each other
-- Your call to use or not
-- Don't yell at me
 
 ---
 
@@ -183,7 +175,6 @@ private string? LoadUserId(HttpContext? context)
 <PropertyGroup>
   <EnableNETAnalyzers>true</EnableNETAnalyzers>
   <EnforceCodeStyleInBuild>true</EnforceCodeStyleInBuild>
-  <IncludeOpenAPIAnalyzers>true</IncludeOpenAPIAnalyzers>
   <EnableRequestDelegateGenerator>true</EnableRequestDelegateGenerator>
   <EnableConfigurationBindingGenerator>true</EnableConfigurationBindingGenerator>
 </PropertyGroup>
@@ -212,7 +203,7 @@ private string? LoadUserId(HttpContext? context)
 
 # `.editorconfig` File
 
-- Extensible/ Open Standard / Configurable / etc
+- Extensible / Open Standard / Configurable / etc
 - Single file checked into source control
 - Different languages have different levels of support for it
   - C# support is really good
@@ -315,6 +306,14 @@ public class UserManager : IUserManager
 builder.Services.AddScoped<IUserManager, UserManager>();
 
 ```
+---
+
+# Shameless Self Promotion
+
+- Other ConFoo Session
+  - Coding C# with C#
+  - Friday: 11 AM
+
 ---
 
 # Recommendation: 
