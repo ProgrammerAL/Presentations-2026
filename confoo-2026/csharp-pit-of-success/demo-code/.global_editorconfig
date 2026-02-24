@@ -1,0 +1,7 @@
+is_global = true
+
+# XML comments
+dotnet_diagnostic.SA0001.severity = none
+
+# File should have header
+dotnet_diagnostic.SA1633.severity = none
