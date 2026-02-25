@@ -162,7 +162,6 @@ dotnet_diagnostic.CA1026.severity = warning
 
 dotnet_diagnostic.CA1032.severity = none
 
-dotnet_diagnostic.CA1033.severity = warning
 
 dotnet_diagnostic.CA1034.severity = suggestion
 
@@ -470,7 +469,6 @@ dotnet_diagnostic.S3267.severity = suggestion
 
 csharp_style_namespace_declarations=file_scoped:error
 
-dotnet_diagnostic.SA1403.severity=error
 
 dotnet_diagnostic.S3903.severity=error
 
@@ -480,4 +478,6 @@ dotnet_diagnostic.S3925.severity=error
 
 dotnet_diagnostic.S2325.severity = suggestion
 
+dotnet_diagnostic.CA1033.severity = warning
+dotnet_diagnostic.SA1403.severity=error
 dotnet_diagnostic.S6931.severity = suggestion
