@@ -4,8 +4,21 @@ title: Setting Up Your C# Pit of Success
 paginate: true
 theme: default
 author: Al Rodriguez
-footer: '@ProgrammerAL and programmerAL.com'
+footer: '@ProgrammerAL at programmerAL.com'
 ---
+
+<style>
+section::before {
+  /* display: block; */
+  content: url('presentation-images/duende-logo.png');
+  width: 10px;
+  height: 10px;
+
+  position: absolute;
+  right: 60px;
+  bottom: -5px;
+}
+</style>
 
 # Setting Up Your C# Pit of Success
 
