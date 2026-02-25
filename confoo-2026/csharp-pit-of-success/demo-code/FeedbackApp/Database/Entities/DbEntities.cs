@@ -16,7 +16,7 @@ public class RatingEntity : ITableEntity
     public ETag ETag { get; set; }
 
 
-    [MemberNotNullWhen(true, nameof(Rating), nameof(Comments))]
+    [MemberNotNullWhen(returnValue: true, nameof(Rating), nameof(Comments))]
     public bool IsValid()
         => Rating.HasValue && !string.IsNullOrWhiteSpace(Comments);
 }
