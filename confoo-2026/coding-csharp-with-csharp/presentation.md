@@ -10,8 +10,7 @@ footer: '@ProgrammerAL at programmerAL.com'
 <style>
 section::before {
   /* display: block; */
-  content: url('presentation-images/duende-logo.png');
-  width: 10px;
+  content: url('https://raw.githubusercontent.com/ProgrammerAL/Presentations-2026/main/confoo-2026/coding-csharp-with-csharp/presentation-images/duende-logo.png');  width: 10px;
   height: 10px;
 
   position: absolute;
