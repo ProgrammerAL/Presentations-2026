@@ -41,8 +41,8 @@ with AL Rodriguez
 
 - C# analyzers
 - C# source code generation
-- How this is already built into C#
-  - Note: Everything Mentioned is Free
+- How these are already built into C#
+* Note: Everything Mentioned is Free
 
 ---
 
@@ -87,7 +87,6 @@ with AL Rodriguez
   - https://learn.microsoft.com/en-us/dotnet/fundamentals/code-analysis/overview
 - Many 3rd Party Analyzer NuGet packages
   - SonarAnalyzer.CSharp
-  - Meziantou.Analyzer
   - Roslynator.Analyzers
   - StyleCop.Analyzers
   - SerilogAnalyzer
@@ -116,8 +115,8 @@ with AL Rodriguez
 
 - Code created in-memory at compile time
   - Can write to files if flag enabled in project, all or nothing
-- Additive only, cannot modify code
 - Written using same Roslyn Syntax Tree API as Analyzers
+- Additive only, cannot modify code
 
 ---
 
