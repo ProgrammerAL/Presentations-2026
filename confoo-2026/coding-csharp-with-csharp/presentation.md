@@ -49,7 +49,7 @@ with AL Rodriguez
 # History Recap: C# Compiler
 
 * 2000: Compiler written in C++
-  - Big-Bang features added each year
+  - Big-Bang features added each update
   - Tech debt added over time
 * 2011: Roslyn Compiler released
   - Full rewrite in C#
