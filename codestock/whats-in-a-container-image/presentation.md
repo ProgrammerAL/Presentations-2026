@@ -41,11 +41,30 @@ with AL Rodriguez
 # Why are we here?
 
 - Dissect Container **Images**
-  - Enforce code quality
+- Mostly Introduction
+  - to Image contents
 
 ---
 
-# Container Images
+# Terminology
+
+- Image
+  - The File
+- Container
+  - The Image Running
+
+---
+
+# What is an Image?
+
+
+---
+
+# Export the file
+
+---
+
+# Docker Scout
 
 
 ---
