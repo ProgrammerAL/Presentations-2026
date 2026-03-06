@@ -10,7 +10,7 @@ footer: '@ProgrammerAL at programmerAL.com'
 <style>
 section::before {
   /* display: block; */
-  content: url('https://raw.githubusercontent.com/ProgrammerAL/Presentations-2026/main/confoo-2026/csharp-pit-of-success/presentation-images/duende-logo.png');
+  content: url('https://raw.githubusercontent.com/ProgrammerAL/Presentations-2026/main/common-images/duende-logo.png');
   width: 10px;
   height: 10px;
 
@@ -57,15 +57,87 @@ with AL Rodriguez
 
 # What is an Image?
 
+- Immutable
+- Layers
 
 ---
 
-# Export the file
+# Image Layers
+
+- Layers re-used between images
+- https://docs.docker.com/get-started/docker-concepts/building-images/understanding-image-layers
+- Recommended Practice: Only include needed layers
 
 ---
 
-# Docker Scout
+# What's a Layer?
 
+- Commands
+  - `COPY requirements.txt ./`
+  - `RUN pip install --no-cache-dir -r requirements.txt`
+- Environment Variables
+  - `ENV NODE_VERSION=25.8.0`
+
+---
+
+# Creating a Minimal Image
+
+- Start with `From scratch`
+  - `scratch` is reserved, it's empty
+  - Not an Image
+- Copy in what you need
+
+---
+
+# Shared Images Example
+
+---
+
+# Export to a file
+
+- ``
+
+---
+
+# Slim vs Non-Slim
+
+- `docker pull node:trixie`
+- `docker pull node:trixie-slim`
+
+---
+
+# Trixie Stats
+
+Slim | Non-Slim 
+-----|------|
+332.91 MB | 1.76 GB
+8 Layers | 11 Layers
+
+---
+
+# Security Talk: Package Vulnerabilities
+
+- Images are Immutable
+  - Don't get updated
+- `Docker Scout` shows packages/vulnerabilities
+
+---
+
+# Hardened Images
+
+- Docker Hardened Images
+- Ubuntu Chiselled Images
+- chainguard.dev
+- minimus.io
+
+---
+
+# Recommended Practices: Consolidated
+
+- Only include needed layers
+- Don't copy unnecessary files to the final image
+  - `.dockerignore` file or `COPY` commands
+- Update dependencies when possible
 
 ---
 
