@@ -77,6 +77,28 @@ with AL Rodriguez
   - `RUN pip install --no-cache-dir -r requirements.txt`
 - Environment Variables
   - `ENV NODE_VERSION=25.8.0`
+  - Plaintext!!!
+
+---
+
+# Interrogate an Image
+
+* UI Tools
+  - Docker Desktop
+  - Podman
+* Export the file
+  - `docker image save --output <path.tar> image <image-name>`
+* Run the Image, look at files
+  - From UI
+  - `docker exec -it <CONTAINER ID> sh`
+
+---
+
+# Multi-Stage Builds
+
+- 2 Images
+- 1 to Build/Compile/Do Work
+- 1 for output image
 
 ---
 
