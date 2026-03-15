@@ -32,7 +32,10 @@ with AL Rodriguez
 
 - @ProgrammerAL
 - https://ProgrammerAL.com
-- Customer Success Engineer at Duende
+- Customer Success Engineer
+  - Duende
+- Freelance Affiliate
+  - globalGlob(**/*) aka https://globalGlob.dev
 
 ![bg right 80%](presentation-images/presentation_link_qrcode.png)
 
@@ -42,7 +45,36 @@ with AL Rodriguez
 
 - Dissect Container **Images**
 - Mostly Introduction
-  - to Image contents
+
+---
+
+![bg left:70%](presentation-images/vm-infrastructure.webp)
+Source: https://www.docker.com/resources/what-container
+
+---
+![bg left:70%](presentation-images/container-infrastructure.webp)
+Source: https://www.docker.com/resources/what-container
+
+---
+
+```dockerfile
+FROM node:20-alpine
+LABEL Name="Node.js Demo App" Version=4.9.9
+ENV NODE_ENV=production
+ENV MY_ENV_VARIABLE=abc123
+WORKDIR /app
+
+# For Docker layer caching do this BEFORE copying in rest of app
+COPY src/package*.json ./
+RUN npm install --production --silent
+
+# NPM is done, now copy in the rest of the project to the workdir
+COPY src/. .
+
+# Port 3000 for our Express server 
+EXPOSE 3000
+ENTRYPOINT ["npm", "start"]
+```
 
 ---
 
@@ -57,38 +89,53 @@ with AL Rodriguez
 
 # What is an Image?
 
-- Immutable
+- Immutable file
 - Layers
 
 ---
 
-# Image Layers
+# Images are built by Layers
 
 - Layers re-used between images
-- https://docs.docker.com/get-started/docker-concepts/building-images/understanding-image-layers
 - Recommended Practice: Only include needed layers
 
 ---
 
 # What's a Layer?
 
+- Files
+  - Binaries, images, text files
 - Commands
   - `COPY requirements.txt ./`
   - `RUN pip install --no-cache-dir -r requirements.txt`
 - Environment Variables
   - `ENV NODE_VERSION=25.8.0`
   - Plaintext!!!
+- Everything Copy/Pasted from Base Images
+
+---
+
+# Files of an Image
+
+- `oci-layout`
+  - Version of the specification for the Image
+- `index.json`
+  - Points to manifest
+- `manifest.json`
+  - Lists blobs
+- `/blobs`
+  - Files for each layer
 
 ---
 
 # Interrogate an Image
 
-* UI Tools
+- UI Tools
   - Docker Desktop
   - Podman
-* Export the file
-  - `docker image save --output <path.tar> image <image-name>`
-* Run the Image, look at files
+- Export the file
+  - `docker image save --output <path.tar> <image-name>`
+- Run the Image, look at files
   - From UI
   - `docker exec -it <CONTAINER ID> sh`
 
@@ -160,6 +207,13 @@ Slim | Non-Slim
 - Don't copy unnecessary files to the final image
   - `.dockerignore` file or `COPY` commands
 - Update dependencies when possible
+
+---
+
+# Other Resources
+
+- https://anniecherkaev.com/what-is-a-container-image
+- https://docs.docker.com/get-started/docker-concepts/building-images/understanding-image-layers
 
 ---
 
