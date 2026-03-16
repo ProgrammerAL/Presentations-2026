@@ -141,33 +141,33 @@ ENTRYPOINT ["npm", "start"]
 
 ---
 
-# Multi-Stage Builds
+# Only include needed layers/files
 
-- 2 Images
-- 1 to Build/Compile/Do Work
-- 1 for output image
-
----
-
-# Creating a Minimal Image
-
-- Start with `From scratch`
-  - `scratch` is reserved, it's empty
-  - Not an Image
-- Copy in what you need
+- Less Package Vulnerabilities
+  - Supply Chain Security
+- Smaller Image Downloads
 
 ---
 
-# Shared Images Example
+# Only include needed layers
+
+- Small Images
+  - Slim and/or Hardened Images
+  - Use Multi-Stage Builds
+  - Extra Credit: Create a Minimal Image
 
 ---
 
-# Export to a file
+# Hardened Images
 
-- ``
+- Docker Hardened Images
+- Ubuntu Chiselled Images
+- chainguard.dev
+- minimus.io
 
 ---
 
+# //TODO: Compare to others, like Chainguard
 # Slim vs Non-Slim
 
 - `docker pull node:trixie`
@@ -184,29 +184,49 @@ Slim | Non-Slim
 
 ---
 
-# Security Talk: Package Vulnerabilities
+# Your Own Minimal Image
 
-- Images are Immutable
-  - Don't get updated
-- `Docker Scout` shows packages/vulnerabilities
-
----
-
-# Hardened Images
-
-- Docker Hardened Images
-- Ubuntu Chiselled Images
-- chainguard.dev
-- minimus.io
+- Start with `From scratch`
+  - `scratch` is reserved, it's empty
+  - Not an Image
+- Copy in what you need
 
 ---
 
-# Recommended Practices: Consolidated
+# Multi-Stage Builds
+
+- 2 Images
+- 1 to Build/Compile/Do Work
+- 1 for output image
+
+---
+
+# Again: Less Files
 
 - Only include needed layers
 - Don't copy unnecessary files to the final image
   - `.dockerignore` file or `COPY` commands
 - Update dependencies when possible
+
+---
+
+---
+---
+---
+---
+---
+---
+---
+---
+---
+---
+---
+
+# Security Talk: Package Vulnerabilities
+
+- Images are Immutable
+  - Don't get updated
+- `Docker Scout` shows packages/vulnerabilities
 
 ---
 
