@@ -28,7 +28,7 @@ with AL Rodriguez
 
 ---
 
-# About Me
+# Shameless Self Promotion
 
 - @ProgrammerAL
 - https://ProgrammerAL.com
