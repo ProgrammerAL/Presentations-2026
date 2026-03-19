@@ -11,29 +11,23 @@ public static class PostNewRatingEndpoint
     public static RouteHandlerBuilder RegisterApiEndpoint(RouteGroupBuilder group)
     {
         return group.MapPost("/new-rating",
-            async ([FromBody, Required] PostNewRatingRequest requestBody,
+            async ([FromBody, Required] PostNewRatingRequestBody requestBody,
             IRatingsService ratingsService) =>
             {
-                var comments = requestBody.Body.Comments ?? "";
-                await ratingsService.StoreNewRatingAsync(requestBody.Body.Rating, comments);
+                var comments = requestBody.Comments ?? "";
+                await ratingsService.StoreNewRatingAsync(requestBody.Rating, comments);
 
                 return TypedResults.NoContent();
             })
             .WithSummary("Creates and persists a new rating");
     }
 
-    public class PostNewRatingRequest
+    public class PostNewRatingRequestBody
     {
-        [Required, FromBody]
-        public required PostNewRatingRequestBody Body { get; set; }
+        [Required, Range(1, 5), FromBody]
+        public required int Rating { get; init; }
 
-        public class PostNewRatingRequestBody
-        {
-            [Required, Range(1, 5), FromBody]
-            public required int Rating { get; init; }
-
-            [FromBody]
-            public string? Comments { get; init; }
-        }
+        [FromBody]
+        public string? Comments { get; init; }
     }
 }
