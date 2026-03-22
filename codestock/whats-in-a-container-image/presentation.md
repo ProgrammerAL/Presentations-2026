@@ -43,8 +43,9 @@ with AL Rodriguez
 
 # Why are we here?
 
-- Dissect Container **Images**
 - Mostly Introduction
+- Dissect Container **Images**
+- Talk Image Security
 
 ---
 
@@ -111,7 +112,19 @@ ENTRYPOINT ["npm", "start"]
 - Environment Variables
   - `ENV NODE_VERSION=25.8.0`
   - Plaintext!!!
-- Everything Copy/Pasted from Base Images
+
+---
+
+# Interrogate an Image
+
+- UI Tools
+  - Docker Desktop
+  - Podman
+- Run the Image, look at files
+  - From UI
+  - `docker exec -it <CONTAINER ID> sh`
+- Export the file
+  - `docker image save --output <path.tar> <image-name>`
 
 ---
 
@@ -125,19 +138,6 @@ ENTRYPOINT ["npm", "start"]
   - Lists blobs
 - `/blobs`
   - Files for each layer
-
----
-
-# Interrogate an Image
-
-- UI Tools
-  - Docker Desktop
-  - Podman
-- Export the file
-  - `docker image save --output <path.tar> <image-name>`
-- Run the Image, look at files
-  - From UI
-  - `docker exec -it <CONTAINER ID> sh`
 
 ---
 
@@ -158,6 +158,20 @@ ENTRYPOINT ["npm", "start"]
 
 ---
 
+# Small OS Images
+
+- Alpine OS
+  - ~5 MB
+
+---
+
+# Distroless Images
+
+- Just the app and dependencies
+- https://github.com/GoogleContainerTools/distroless
+
+---
+
 # Hardened Images
 
 - Docker Hardened Images
@@ -167,8 +181,7 @@ ENTRYPOINT ["npm", "start"]
 
 ---
 
-# //TODO: Compare to others, like Chainguard
-# Slim vs Non-Slim
+# Slim vs Non-Slim Debian Trixie
 
 - `docker pull node:trixie`
 - `docker pull node:trixie-slim`
@@ -184,7 +197,24 @@ Slim | Non-Slim
 
 ---
 
-# Your Own Minimal Image
+# Hardened Node 25 Images (March 22, 2026)
+
+- `docker pull node:25-alpine3.22`
+  - Alpine 3.22
+  - 238.07 MB
+  - 6 Vulnerabilities / 175 Packages
+* `docker pull cgr.dev/chainguard/node`
+  - 233.76 MB
+  - 0 Vulnerabilities / 192 Packages
+* `docker pull dhi.io/node:25`
+  - Docker Hardened / Debian Base
+  - 38.49 MB
+  - 0 Vulnerabilities / 20 Packages
+
+
+---
+
+# Extra Credit: Your Own Minimal Image
 
 - Start with `From scratch`
   - `scratch` is reserved, it's empty
@@ -210,23 +240,7 @@ Slim | Non-Slim
 
 ---
 
----
----
----
----
----
----
----
----
----
----
----
-
-# Security Talk: Package Vulnerabilities
-
-- Images are Immutable
-  - Don't get updated
-- `Docker Scout` shows packages/vulnerabilities
+# Demo Time
 
 ---
 
