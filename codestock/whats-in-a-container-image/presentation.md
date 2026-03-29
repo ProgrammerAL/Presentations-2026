@@ -28,6 +28,14 @@ with AL Rodriguez
 
 ---
 
+# Why are we here?
+
+- Mostly Introduction
+- Dissect Container **Images**
+- Talk Image Security
+
+---
+
 # Shameless Self Promotion
 
 - @ProgrammerAL
@@ -38,14 +46,6 @@ with AL Rodriguez
   - globalGlob(**/*) aka https://globalGlob.dev
 
 ![bg right 80%](presentation-images/presentation_link_qrcode.png)
-
----
-
-# Why are we here?
-
-- Mostly Introduction
-- Dissect Container **Images**
-- Talk Image Security
 
 ---
 
@@ -141,7 +141,11 @@ ENTRYPOINT ["npm", "start"]
 
 ---
 
-# Only include needed layers/files
+# Demo Exported Image
+
+---
+
+# Security: Only include needed layers/files
 
 - Less Package Vulnerabilities
   - Supply Chain Security
@@ -149,16 +153,23 @@ ENTRYPOINT ["npm", "start"]
 
 ---
 
-# Only include needed layers
+# Make Images Smaller
 
-- Small Images
-  - Slim and/or Hardened Images
-  - Use Multi-Stage Builds
-  - Extra Credit: Create a Minimal Image
+- Slim and/or Hardened Images
+- Use Multi-Stage Builds
+- Extra Credit: Create a Minimal Image
 
 ---
 
-# Small OS Images
+# OS Image Size - Debian Trixie
+
+Normal | Slim
+-----|------|
+186.4 MB | 119.17 MB
+
+---
+
+# Container Specific OS
 
 - Alpine OS
   - ~5 MB
@@ -181,22 +192,6 @@ ENTRYPOINT ["npm", "start"]
 
 ---
 
-# Slim vs Non-Slim Debian Trixie
-
-- `docker pull node:trixie`
-- `docker pull node:trixie-slim`
-
----
-
-# Trixie Stats
-
-Slim | Non-Slim 
------|------|
-332.91 MB | 1.76 GB
-8 Layers | 11 Layers
-
----
-
 # Hardened Node 25 Images (March 22, 2026)
 
 - `docker pull node:25-alpine3.22`
@@ -210,7 +205,6 @@ Slim | Non-Slim
   - Docker Hardened / Debian Base
   - 38.49 MB
   - 0 Vulnerabilities / 20 Packages
-
 
 ---
 
