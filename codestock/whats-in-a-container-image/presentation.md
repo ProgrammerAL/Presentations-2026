@@ -161,18 +161,13 @@ ENTRYPOINT ["npm", "start"]
 
 ---
 
-# OS Image Size - Debian Trixie
+# OS Image Sizes
 
-Normal | Slim
------|------|
-186.4 MB | 119.17 MB
+- Base OS vs Slim vs Container OS
 
----
-
-# Container Specific OS
-
-- Alpine OS
-  - ~5 MB
+debian:trixie | debian:trixie-slim | alpine
+-----|------|------|
+186.4 MB | 119.17 MB | 13.05 MB
 
 ---
 
@@ -192,19 +187,14 @@ Normal | Slim
 
 ---
 
-# Hardened Node 25 Images (March 22, 2026)
+# Node 25 Images (March 31, 2026)
 
-- `docker pull node:25-alpine3.22`
-  - Alpine 3.22
-  - 238.07 MB
-  - 6 Vulnerabilities / 175 Packages
-* `docker pull cgr.dev/chainguard/node`
-  - 233.76 MB
-  - 0 Vulnerabilities / 192 Packages
-* `docker pull dhi.io/node:25`
-  - Docker Hardened / Debian Base
-  - 38.49 MB
-  - 0 Vulnerabilities / 20 Packages
+tag | Size | Base OS | Packages | Vulnerabilities 
+-----|------|------|------|------|
+node:25-trixie | 1.76 GB | Debian Trixie | 756  | 210
+node:25-alpine3.22 | 238.17 MB | Alpine | 175 | 5
+cgr.dev/chainguard/node | 233.77 MB | Distroless | 192 | 3
+dhi.io/node:25 | 177.57 MB | Debian Trixie  | 22 | 8
 
 ---
 
@@ -214,6 +204,12 @@ Normal | Slim
   - `scratch` is reserved, it's empty
   - Not an Image
 - Copy in what you need
+
+---
+
+# Demo Scratch
+
+- `docker image save --output my-scratch.tar my-scratch`
 
 ---
 

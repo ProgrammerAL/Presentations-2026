@@ -200,35 +200,29 @@ Source: <a href="https://www.docker.com/resources/what-container">https://www.do
 <footer>@ProgrammerAL at programmerAL.com</footer>
 </section>
 </foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="16" data-paginate="true" data-footer="@ProgrammerAL at programmerAL.com" data-theme="default" lang="en-US" data-marpit-pagination="16" style="--paginate:true;--footer:@ProgrammerAL at programmerAL.com;--theme:default;" data-marpit-pagination-total="26">
-<h1 id="os-image-size---debian-trixie">OS Image Size - Debian Trixie</h1>
+<h1 id="os-image-sizes">OS Image Sizes</h1>
+<ul>
+<li>Base OS vs Slim vs Container OS</li>
+</ul>
 <table>
 <thead>
 <tr>
-<th>Normal</th>
-<th>Slim</th>
+<th>debian:trixie</th>
+<th>debian:trixie-slim</th>
+<th>alpine</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td>186.4 MB</td>
 <td>119.17 MB</td>
+<td>13.05 MB</td>
 </tr>
 </tbody>
 </table>
 <footer>@ProgrammerAL at programmerAL.com</footer>
 </section>
 </foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="17" data-paginate="true" data-footer="@ProgrammerAL at programmerAL.com" data-theme="default" lang="en-US" data-marpit-pagination="17" style="--paginate:true;--footer:@ProgrammerAL at programmerAL.com;--theme:default;" data-marpit-pagination-total="26">
-<h1 id="container-specific-os">Container Specific OS</h1>
-<ul>
-<li>Alpine OS
-<ul>
-<li>~5 MB</li>
-</ul>
-</li>
-</ul>
-<footer>@ProgrammerAL at programmerAL.com</footer>
-</section>
-</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="18" data-paginate="true" data-footer="@ProgrammerAL at programmerAL.com" data-theme="default" lang="en-US" data-marpit-pagination="18" style="--paginate:true;--footer:@ProgrammerAL at programmerAL.com;--theme:default;" data-marpit-pagination-total="26">
 <h1 id="distroless-images">Distroless Images</h1>
 <ul>
 <li>Just the app and dependencies</li>
@@ -236,7 +230,7 @@ Source: <a href="https://www.docker.com/resources/what-container">https://www.do
 </ul>
 <footer>@ProgrammerAL at programmerAL.com</footer>
 </section>
-</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="19" data-paginate="true" data-footer="@ProgrammerAL at programmerAL.com" data-theme="default" lang="en-US" data-marpit-pagination="19" style="--paginate:true;--footer:@ProgrammerAL at programmerAL.com;--theme:default;" data-marpit-pagination-total="26">
+</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="18" data-paginate="true" data-footer="@ProgrammerAL at programmerAL.com" data-theme="default" lang="en-US" data-marpit-pagination="18" style="--paginate:true;--footer:@ProgrammerAL at programmerAL.com;--theme:default;" data-marpit-pagination-total="26">
 <h1 id="hardened-images">Hardened Images</h1>
 <ul>
 <li>Docker Hardened Images</li>
@@ -246,35 +240,52 @@ Source: <a href="https://www.docker.com/resources/what-container">https://www.do
 </ul>
 <footer>@ProgrammerAL at programmerAL.com</footer>
 </section>
-</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="20" data-marpit-fragments="2" data-paginate="true" data-footer="@ProgrammerAL at programmerAL.com" data-theme="default" lang="en-US" data-marpit-pagination="20" style="--paginate:true;--footer:@ProgrammerAL at programmerAL.com;--theme:default;" data-marpit-pagination-total="26">
-<h1 id="hardened-node-25-images-march-22-2026">Hardened Node 25 Images (March 22, 2026)</h1>
-<ul>
-<li><code>docker pull node:25-alpine3.22</code>
-<ul>
-<li>Alpine 3.22</li>
-<li>238.07 MB</li>
-<li>6 Vulnerabilities / 175 Packages</li>
-</ul>
-</li>
-</ul>
-<ul>
-<li data-marpit-fragment="1"><code>docker pull cgr.dev/chainguard/node</code>
-<ul>
-<li>233.76 MB</li>
-<li>0 Vulnerabilities / 192 Packages</li>
-</ul>
-</li>
-<li data-marpit-fragment="2"><code>docker pull dhi.io/node:25</code>
-<ul>
-<li>Docker Hardened / Debian Base</li>
-<li>38.49 MB</li>
-<li>0 Vulnerabilities / 20 Packages</li>
-</ul>
-</li>
-</ul>
+</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="19" data-paginate="true" data-footer="@ProgrammerAL at programmerAL.com" data-theme="default" lang="en-US" data-marpit-pagination="19" style="--paginate:true;--footer:@ProgrammerAL at programmerAL.com;--theme:default;" data-marpit-pagination-total="26">
+<h1 id="node-25-images-march-31-2026">Node 25 Images (March 31, 2026)</h1>
+<table>
+<thead>
+<tr>
+<th>tag</th>
+<th>Size</th>
+<th>Base OS</th>
+<th>Packages</th>
+<th>Vulnerabilities</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>node:25-trixie</td>
+<td>1.76 GB</td>
+<td>Debian Trixie</td>
+<td>756</td>
+<td>210</td>
+</tr>
+<tr>
+<td>node:25-alpine3.22</td>
+<td>238.17 MB</td>
+<td>Alpine</td>
+<td>175</td>
+<td>5</td>
+</tr>
+<tr>
+<td>cgr.dev/chainguard/node</td>
+<td>233.77 MB</td>
+<td>Distroless</td>
+<td>192</td>
+<td>3</td>
+</tr>
+<tr>
+<td>dhi.io/node:25</td>
+<td>177.57 MB</td>
+<td>Debian Trixie</td>
+<td>22</td>
+<td>8</td>
+</tr>
+</tbody>
+</table>
 <footer>@ProgrammerAL at programmerAL.com</footer>
 </section>
-</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="21" data-paginate="true" data-footer="@ProgrammerAL at programmerAL.com" data-theme="default" lang="en-US" data-marpit-pagination="21" style="--paginate:true;--footer:@ProgrammerAL at programmerAL.com;--theme:default;" data-marpit-pagination-total="26">
+</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="20" data-paginate="true" data-footer="@ProgrammerAL at programmerAL.com" data-theme="default" lang="en-US" data-marpit-pagination="20" style="--paginate:true;--footer:@ProgrammerAL at programmerAL.com;--theme:default;" data-marpit-pagination-total="26">
 <h1 id="extra-credit-your-own-minimal-image">Extra Credit: Your Own Minimal Image</h1>
 <ul>
 <li>Start with <code>From scratch</code>
@@ -284,6 +295,13 @@ Source: <a href="https://www.docker.com/resources/what-container">https://www.do
 </ul>
 </li>
 <li>Copy in what you need</li>
+</ul>
+<footer>@ProgrammerAL at programmerAL.com</footer>
+</section>
+</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="21" data-paginate="true" data-footer="@ProgrammerAL at programmerAL.com" data-theme="default" lang="en-US" data-marpit-pagination="21" style="--paginate:true;--footer:@ProgrammerAL at programmerAL.com;--theme:default;" data-marpit-pagination-total="26">
+<h1 id="demo-scratch">Demo Scratch</h1>
+<ul>
+<li><code>docker image save --output my-scratch.tar my-scratch</code></li>
 </ul>
 <footer>@ProgrammerAL at programmerAL.com</footer>
 </section>
