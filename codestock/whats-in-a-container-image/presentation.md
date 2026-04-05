@@ -109,9 +109,9 @@ ENTRYPOINT ["npm", "start"]
 - Commands
   - `COPY requirements.txt ./`
   - `RUN pip install --no-cache-dir -r requirements.txt`
-- Environment Variables
+- Environment Variables / Labels
   - `ENV NODE_VERSION=25.8.0`
-  - Plaintext!!!
+  - `LABEL Name="Node.js Demo App" Version=4.9.9`
 
 ---
 
@@ -191,13 +191,46 @@ debian:trixie | debian:trixie-slim | alpine
 
 tag | Size | Base OS | Packages | Vulnerabilities 
 -----|------|------|------|------|
+
+---
+
+# Node 25 Images (March 31, 2026)
+
+tag | Size | Base OS | Packages | Vulnerabilities 
+-----|------|------|------|------|
+node:25-trixie | 1.76 GB | Debian Trixie | 756  | 210
+
+---
+
+# Node 25 Images (March 31, 2026)
+
+tag | Size | Base OS | Packages | Vulnerabilities 
+-----|------|------|------|------|
+node:25-trixie | 1.76 GB | Debian Trixie | 756  | 210
+node:25-alpine3.22 | 238.17 MB | Alpine | 175 | 5
+
+---
+
+# Node 25 Images (March 31, 2026)
+
+tag | Size | Base OS | Packages | Vulnerabilities 
+-----|------|------|------|------|
+node:25-trixie | 1.76 GB | Debian Trixie | 756  | 210
+node:25-alpine3.22 | 238.17 MB | Alpine | 175 | 5
+cgr.dev/chainguard/node | 233.77 MB | Distroless | 192 | 3
+
+---
+
+# Node 25 Images (March 31, 2026)
+
+tag | Size | Base OS | Packages | Vulnerabilities 
+-----|------|------|------|------|
 node:25-trixie | 1.76 GB | Debian Trixie | 756  | 210
 node:25-alpine3.22 | 238.17 MB | Alpine | 175 | 5
 cgr.dev/chainguard/node | 233.77 MB | Distroless | 192 | 3
 dhi.io/node:25 | 177.57 MB | Debian Trixie  | 22 | 8
 
 ---
-
 # Extra Credit: Your Own Minimal Image
 
 - Start with `From scratch`
@@ -221,7 +254,7 @@ dhi.io/node:25 | 177.57 MB | Debian Trixie  | 22 | 8
 
 ---
 
-# Again: Less Files
+# Other Ways to have Less Files
 
 - Only include needed layers
 - Don't copy unnecessary files to the final image
