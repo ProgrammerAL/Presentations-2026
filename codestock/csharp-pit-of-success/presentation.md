@@ -28,16 +28,6 @@ with AL Rodriguez
 
 ---
 
-# About Me
-
-- @ProgrammerAL
-- https://ProgrammerAL.com
-- Customer Success Engineer at Duende
-
-![bg right 80%](presentation-images/presentation_link_qrcode.png)
-
----
-
 # Why are we here?
 
 - Discuss a C# Pit of Success
@@ -45,6 +35,19 @@ with AL Rodriguez
 - Present ***Recommendations*** for ***Concepts***
   - Please limit your yelling
 - All Free*
+
+---
+
+# Shameless Self Promotion
+
+- @ProgrammerAL
+- https://ProgrammerAL.com
+- Customer Success Engineer
+  - Duende
+- Freelance Affiliate
+  - globalGlob(**/*) aka https://globalGlob.dev
+
+![bg right 80%](presentation-images/presentation_link_qrcode.png)
 
 ---
 
