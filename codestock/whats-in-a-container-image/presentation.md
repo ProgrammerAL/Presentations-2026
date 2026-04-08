@@ -269,8 +269,12 @@ dhi.io/node:25 | 177.57 MB | Debian Trixie  | 22 | 8
 
 # Other Resources
 
-- https://anniecherkaev.com/what-is-a-container-image
-- https://docs.docker.com/get-started/docker-concepts/building-images/understanding-image-layers
+- Zero to Running an Image
+  - https://anniecherkaev.com/what-is-a-container-image
+- Bringing Image Down from 2.4GB to 24 MB
+  - https://medium.com/engineering-playbook/my-docker-image-was-2-4gb-i-cut-it-to-24mb-heres-every-optimization-that-actually-worked-46792bd23da4
+- Docker Docs on Layers
+  - https://docs.docker.com/get-started/docker-concepts/building-images/understanding-image-layers
 
 ---
 
