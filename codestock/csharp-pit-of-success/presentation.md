@@ -324,14 +324,6 @@ builder.Services.AddScoped<IUserManager, UserManager>();
 ```
 ---
 
-# Shameless Self Promotion
-
-- Other ConFoo Session
-  - Coding C# with C#
-  - Friday: 11 AM
-
----
-
 # Recommendation: 
 ## Secure your Software Supply Chain
 
