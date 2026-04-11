@@ -28,6 +28,17 @@ with AL Rodriguez
 
 ---
 
+# Why are we here?
+
+- Talk about null handling in C#
+- Enable Nullable Reference Types (NRT)
+
+---
+
+![bg 80%](presentation-images/sponsors.png)
+
+---
+
 # Shameless Self Promotion
 
 - @ProgrammerAL and https://ProgrammerAL.com
@@ -36,13 +47,6 @@ with AL Rodriguez
   - globalGlob(**/*) aka https://globalGlob.dev
 
 ![bg right 80%](presentation-images/presentation_link_qrcode.png)
-
----
-
-# Why are we here?
-
-- Talk about null handling in C#
-- Enable Nullable Reference Types (NRT)
 
 ---
 
