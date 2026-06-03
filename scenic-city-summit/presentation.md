@@ -10,7 +10,7 @@ footer: '@ProgrammerAL at programmerAL.com'
 <style>
 section::before {
   /* display: block; */
-  content: url('https://raw.githubusercontent.com/ProgrammerAL/Presentations-2026/main/common-images/duende-logo-rebranded-2.png');
+  content: url('https://raw.githubusercontent.com/ProgrammerAL/Presentations-2026/main/common-images/duende-logo-rebranded-3.png');
   width: 10px;
   height: 10px;
 
