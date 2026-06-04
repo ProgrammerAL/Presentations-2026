@@ -31,7 +31,7 @@ with AL Rodriguez
 - Customer Success Engineer at Duende
 - Freelance Affiliate at globalGlob.dev
 
-![bg right 80%](presentation-images/presentation_link_qrcode.png)
+![bg right 80%](presentation-images/feedback-qr.png)
 
 ---
 
@@ -40,7 +40,7 @@ with AL Rodriguez
 - C# analyzers
 - C# source code generation
 - How these are already built into C#
-* Note: Everything Mentioned is Free
+- Everything Mentioned is Free
 
 ---
 
