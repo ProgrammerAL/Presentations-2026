@@ -35,12 +35,11 @@ with AL Rodriguez
 
 ---
 
-# Why are we here? To Review!
+# Why are we here? To talk about...
 
 - C# analyzers
 - C# source code generation
-- How these are already built into C#
-- Everything Mentioned is Free
+- Note: It's all free
 
 ---
 
