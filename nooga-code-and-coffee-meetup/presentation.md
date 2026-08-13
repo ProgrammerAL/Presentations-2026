@@ -1,0 +1,278 @@
+---
+marp: true
+title: What's in a Container Image?
+paginate: true
+theme: default
+author: Al Rodriguez
+footer: '@ProgrammerAL at programmerAL.com'
+---
+
+<style>
+section::before {
+  content: url('https://raw.githubusercontent.com/ProgrammerAL/Presentations-2026/main/common-images/duende-logo-rebranded.svg');
+  transform: scale(.25);
+  position: absolute;
+  right: -320px;
+  bottom: -65px;
+}
+</style>
+
+# What's in a Container Image?
+
+with AL Rodriguez
+
+![bg right 80%](presentation-images/presentation_link_qrcode.png)
+
+---
+
+# Why are we here?
+
+- Mostly Introduction
+- Dissect Container **Images**
+- Talk Image Security
+
+---
+
+# Shameless Self Promotion
+
+- @ProgrammerAL
+- https://ProgrammerAL.com
+- Customer Success Engineer
+  - Duende
+- Freelance Affiliate
+  - globalGlob(**/*) aka https://globalGlob.dev
+
+![bg right 80%](presentation-images/presentation_link_qrcode.png)
+
+---
+
+![bg left:70%](presentation-images/vm-infrastructure.webp)
+Source: https://www.docker.com/resources/what-container
+
+---
+![bg left:70%](presentation-images/container-infrastructure.webp)
+Source: https://www.docker.com/resources/what-container
+
+---
+
+```dockerfile
+FROM node:20-alpine
+LABEL Name="Node.js Demo App" Version=4.9.9
+ENV NODE_ENV=production
+ENV MY_ENV_VARIABLE=abc123
+WORKDIR /app
+
+# For Docker layer caching do this BEFORE copying in rest of app
+COPY src/package*.json ./
+RUN npm install --production --silent
+
+# NPM is done, now copy in the rest of the project to the workdir
+COPY src/. .
+
+# Port 3000 for our Express server 
+EXPOSE 3000
+ENTRYPOINT ["npm", "start"]
+```
+
+---
+
+# Terminology
+
+- Image
+  - The File
+- Container
+  - The Image Running
+
+---
+
+# What is an Image?
+
+- Immutable file
+- Layers
+
+---
+
+# Images are built by Layers
+
+- Layers re-used between images
+- Recommended Practice: Only include needed layers
+
+---
+
+# What's a Layer?
+
+- Files
+  - Binaries, images, text files
+- Commands
+  - `COPY requirements.txt ./`
+  - `RUN pip install --no-cache-dir -r requirements.txt`
+- Environment Variables / Labels
+  - `ENV NODE_VERSION=25.8.0`
+  - `LABEL Name="Node.js Demo App" Version=4.9.9`
+
+---
+
+# Interrogate an Image
+
+- UI Tools
+  - Docker Desktop
+  - Podman
+- Run the Image, look at files
+  - From UI
+  - `docker exec -it <CONTAINER ID> sh`
+- Export the file
+  - `docker image save --output <path.tar> <image-name>`
+
+---
+
+# Files of an Image
+
+- `oci-layout`
+  - Version of the specification for the Image
+- `index.json`
+  - Points to manifest
+- `manifest.json`
+  - Lists blobs
+- `/blobs`
+  - Files for each layer
+
+---
+
+# Demo Exported Image
+
+---
+
+# Security: Only include needed layers/files
+
+- Less Package Vulnerabilities
+  - Supply Chain Security
+- Smaller Image Downloads
+
+---
+
+# Make Images Smaller
+
+- Slim and/or Hardened Images
+- Use Multi-Stage Builds
+- Extra Credit: Create a Minimal Image
+
+---
+
+# OS Image Sizes
+
+- Base OS vs Slim vs Container OS
+
+debian:trixie | debian:trixie-slim | alpine
+-----|------|------|
+186.4 MB | 119.17 MB | 13.05 MB
+
+---
+
+# Distroless Images
+
+- Just the app and dependencies
+- https://github.com/GoogleContainerTools/distroless
+
+---
+
+# Hardened Images
+
+- Docker Hardened Images
+- Ubuntu Chiselled Images
+- chainguard.dev
+- minimus.io
+
+---
+
+# Node 25 Images (March 31, 2026)
+
+tag | Size | Base OS | Packages | Vulnerabilities 
+-----|------|------|------|------|
+
+---
+
+# Node 25 Images (March 31, 2026)
+
+tag | Size | Base OS | Packages | Vulnerabilities 
+-----|------|------|------|------|
+node:25-trixie | 1.76 GB | Debian Trixie | 756  | 210
+
+---
+
+# Node 25 Images (March 31, 2026)
+
+tag | Size | Base OS | Packages | Vulnerabilities 
+-----|------|------|------|------|
+node:25-trixie | 1.76 GB | Debian Trixie | 756  | 210
+node:25-alpine3.22 | 238.17 MB | Alpine | 175 | 5
+
+---
+
+# Node 25 Images (March 31, 2026)
+
+tag | Size | Base OS | Packages | Vulnerabilities 
+-----|------|------|------|------|
+node:25-trixie | 1.76 GB | Debian Trixie | 756  | 210
+node:25-alpine3.22 | 238.17 MB | Alpine | 175 | 5
+cgr.dev/chainguard/node | 233.77 MB | Distroless | 192 | 3
+
+---
+
+# Node 25 Images (March 31, 2026)
+
+tag | Size | Base OS | Packages | Vulnerabilities 
+-----|------|------|------|------|
+node:25-trixie | 1.76 GB | Debian Trixie | 756  | 210
+node:25-alpine3.22 | 238.17 MB | Alpine | 175 | 5
+cgr.dev/chainguard/node | 233.77 MB | Distroless | 192 | 3
+dhi.io/node:25 | 177.57 MB | Debian Trixie  | 22 | 8
+
+---
+# Extra Credit: Your Own Minimal Image
+
+- Start with `From scratch`
+  - `scratch` is reserved, it's empty
+  - Not an Image
+- Copy in what you need
+
+---
+
+# Demo Scratch
+
+- `docker image save --output my-scratch.tar my-scratch`
+
+---
+
+# Multi-Stage Builds
+
+- 2 Images
+- 1 to Build/Compile/Do Work
+- 1 for output image
+
+---
+
+# Other Ways to have Less Files
+
+- Only include needed layers
+- Don't copy unnecessary files to the final image
+  - `.dockerignore` file or `COPY` commands
+- Update dependencies when possible
+
+---
+
+# Demo Time
+
+---
+
+# Other Resources
+
+- Zero to Running an Image
+  - https://anniecherkaev.com/what-is-a-container-image
+- Bringing Image Down from 2.4GB to 24 MB
+  - https://medium.com/engineering-playbook/my-docker-image-was-2-4gb-i-cut-it-to-24mb-heres-every-optimization-that-actually-worked-46792bd23da4
+- Docker Docs on Layers
+  - https://docs.docker.com/get-started/docker-concepts/building-images/understanding-image-layers
+
+---
+
+![bg 80%](presentation-images/presentation_link_qrcode.png)
