@@ -31,7 +31,7 @@ with AL Rodriguez
 - Customer Success Engineer at Duende Software
 - Freelance Affiliate at https://globalGlob.dev
 
-![bg right 80%](presentation-images/feedback-qr.png)
+![bg right 80%](presentation-images/presentation_link_qrcode.png)
 
 ---
 
