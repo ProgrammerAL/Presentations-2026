@@ -40,6 +40,7 @@ with AL Rodriguez
 - Automating Code with code
   - Writing and Checking the code
 - Specifically C# Analyzers and C# Source Code generation
+  - Hopefully everyone else gets something out of this too
 
 ---
 
