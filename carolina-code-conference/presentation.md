@@ -101,12 +101,60 @@ with AL Rodriguez
 
 ---
 
-# Demo Time
+# Code Overview
 
 - Existing Analyzer:
   - https://github.com/ProgrammerAL/required-auth.analyzer
 - Scenario:
   - Require `[Authorize]`/`[AllowAnonymous]` attribute in controller files
+
+---
+
+# 3 Projects
+
+![80%](presentation-images/analyzer/projects.png)
+
+---
+
+# Normal csproj file
+
+![bg right 95%](presentation-images/analyzer/csproj.png)
+
+---
+
+# Analyzer Class - ControllerRequiredAuthAnalyzer
+
+![80%](presentation-images/analyzer/analyzer-class.png)
+
+---
+
+# Initialize()
+
+![80%](presentation-images/analyzer/initialize-method.png)
+
+---
+
+# AnalyzeSymbol()
+
+![80%](presentation-images/analyzer/analyze-symbol-method.png)
+
+---
+
+# IsEndpointForTraditionalController()
+
+![80%](presentation-images/analyzer/is-endpoint-for-traditional-endpoint.png)
+
+---
+
+# AnalyzeTraditionalControllerEndpoint()
+
+![80%](presentation-images/analyzer/analyze-traditional-controller-endpoint.png)
+
+---
+
+# Sample Unit Test
+
+![bg right 95%](presentation-images/analyzer/unit-test.png)
 
 ---
 
@@ -141,6 +189,41 @@ with AL Rodriguez
 - Scenario:
   - Generate interface code from a class
   - Only use it for internal interfaces needed for unit tests
+
+---
+
+# Usage Example
+
+![](presentation-images/source-generator/usage-example.png)
+
+---
+
+# Generated Interface
+
+![](presentation-images/source-generator/generated-interface.png)
+
+---
+
+# Generator Class
+
+![](presentation-images/source-generator/generator-class.png)
+
+---
+
+# GenerateAttributesCode()
+
+![](presentation-images/source-generator/generate-attributes-code.png)
+
+---
+
+# GenerateInterface()
+
+![](presentation-images/source-generator/generate-interface.png)
+
+---
+# Example Unit Test
+
+![](presentation-images/source-generator/unit-test.png)
 
 ---
 
