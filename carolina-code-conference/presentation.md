@@ -37,9 +37,17 @@ with AL Rodriguez
 
 # Why are we here? To talk about...
 
-- C# analyzers
-- C# source code generation
-- Note: It's all free
+- Automating Code with code
+  - Writing and Checking the code
+- Specifically C# Analyzers and C# Source Code generation
+
+---
+
+# But Why? We have A.I. and Employer Pays For the Tokens
+
+- Consistency
+- Another check to force A.I. to do it right
+- Humans are on the hook for A.I. work
 
 ---
 
@@ -47,6 +55,7 @@ with AL Rodriguez
 
 * 2000: Compiler written in C++
   - Big-Bang features added each update
+  - Very few small features.
   - Tech debt added over time
 * 2011: Roslyn Compiler released
   - Full rewrite in C#
@@ -72,7 +81,7 @@ with AL Rodriguez
 # Rosyln Analyzer
 
 - Keyword: Analyzer
-- Checks code for rules
+- Checks code text for rules
   - Errors, Warnings, Suggestions, etc
 - Reads code syntax using syntax tree
 
@@ -101,13 +110,6 @@ with AL Rodriguez
 
 ---
 
-# Extra Credit: Roslyn Analyzer Code Fix
-
-- Analyzers can edit code to comply with the rule
-- Analyzer generates the code change, user approves it
-
----
-
 # C# Source Generator
 
 - Code created in-memory at compile time
@@ -125,7 +127,7 @@ with AL Rodriguez
 
 ---
 
-# Useful Source Generator Links
+# If Only the Docs were Better...
 
 - Cookbook: https://github.com/dotnet/roslyn/blob/main/docs/features/incremental-generators.cookbook.md
 - Andrew Lock's blog series: https://andrewlock.net/series/creating-a-source-generator
@@ -144,6 +146,7 @@ with AL Rodriguez
 
 # Review
 
+- Automate your code
 - Add custom hooks to compiler
   - Roslyn Analyzers to check code
   - Source Generators to add code
