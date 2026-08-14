@@ -57,7 +57,6 @@ with AL Rodriguez
 * 2000: Compiler written in C++
   - Big-Bang features added each update
   - Very few small features.
-  - Tech debt added over time
 * 2011: Roslyn Compiler released
   - Full rewrite in C#
     - With knowledge of how C# is used
@@ -149,45 +148,8 @@ with AL Rodriguez
 
 - Automate your code
 - Add custom hooks to compiler
-  - Roslyn Analyzers to check code
-  - Source Generators to add code
+- Roslyn Analyzer -> check code
+- Source Generator -> add code
 - API is specific to parsing code tree
 
----
-
-<style>
-  /* use on containing element to display images side by side */
-  .inline-images {
-      display: flex;
-      height: 90%; /* control location on y-axis */
-      justify-content: space-between;
-      align-items: center;
-  }
-
-  .inline-text {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      color: var(--h1-color);
-      font-size: 1.6em;
-      font-weight: var(--base-text-weight-semibold, 600);
-  }
-</style>
-
-<div class="inline-text">
-  <p>Content</p>
-  <p>Feedback</p>
-</div>
-
-<div class="inline-images">
-  <div>
-
-![w:500](presentation-images/presentation_link_qrcode.png)
-
-  </div>
-  <div>
-
-![w:500](presentation-images/feedback-qr.png)
-
-  </div>
-</div>
+![bg right 80%](presentation-images/presentation_link_qrcode.png)
