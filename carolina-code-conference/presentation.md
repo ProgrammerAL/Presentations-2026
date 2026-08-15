@@ -177,7 +177,7 @@ with AL Rodriguez
 - Code created in-memory at compile time
   - Can write to files if flag enabled in project, all or nothing
 - Written using same Roslyn Syntax Tree API as Analyzers
-- Additive only, cannot modify code
+- Additive only, cannot modify code (for added security!)
 
 ---
 
