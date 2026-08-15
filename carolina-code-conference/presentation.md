@@ -29,7 +29,8 @@ with AL Rodriguez
 
 - @ProgrammerAL and https://ProgrammerAL.com
 - Customer Success Engineer at Duende Software
-- Freelance Affiliate at https://globalGlob.dev
+- Freelance Affiliate at https://globalGlob.dev 
+  - Index 0 for Dev News
 
 ![bg right 80%](presentation-images/presentation_link_qrcode.png)
 
@@ -37,10 +38,23 @@ with AL Rodriguez
 
 # Why are we here? To talk about...
 
+- Automation!!!
+  - Enforce Code Quality
 - Automating Code with code
   - Writing and Checking the code
 - Specifically C# Analyzers and C# Source Code generation
   - Hopefully everyone else gets something out of this too
+
+---
+
+# For non-.NET Devs
+
+- git hooks
+- .editorconfig
+- Linters, write your own
+- Things you can commit to the repo
+
+![bg right 80%](presentation-images/misc-code.png)
 
 ---
 
