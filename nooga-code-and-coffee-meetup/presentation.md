@@ -35,12 +35,9 @@ with AL Rodriguez
 
 # Shameless Self Promotion
 
-- @ProgrammerAL
 - https://ProgrammerAL.com
-- Customer Success Engineer
-  - Duende
-- Freelance Affiliate
-  - globalGlob(**/*) aka https://globalGlob.dev
+- Customer Success Engineer at Duende
+- Freelance Affiliate at https://globalGlob.dev
 
 ![bg right 80%](presentation-images/presentation_link_qrcode.png)
 
@@ -275,4 +272,9 @@ dhi.io/node:25 | 177.57 MB | Debian Trixie  | 22 | 8
 
 ---
 
-![bg 80%](presentation-images/presentation_link_qrcode.png)
+# Review
+
+- Images are made of Immutable Layers
+- Only use what you need
+
+![bg right 80%](presentation-images/presentation_link_qrcode.png)
