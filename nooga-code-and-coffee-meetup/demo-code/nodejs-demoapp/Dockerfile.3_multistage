@@ -1,4 +1,4 @@
-# docker build . --file ./Dockerfile.3_exclude-extra --tag my-3-exclude-extra
+# docker build . --file ./Dockerfile.3_multistage --tag my-3-multistage
 
 # For Docker layer caching do this BEFORE copying in rest of app
 FROM node:20-alpine AS build
@@ -16,5 +16,5 @@ EXPOSE 3000
 
 FROM base AS final
 WORKDIR /app
-COPY --exclude=eslint.*.dbg --exclude=package*.json --from=build app-build/. .
+COPY --from=build app-build/. .
 ENTRYPOINT ["npm", "start"]

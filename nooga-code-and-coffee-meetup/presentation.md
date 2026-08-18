@@ -4,7 +4,7 @@ title: What's in a Container Image?
 paginate: true
 theme: default
 author: Al Rodriguez
-footer: '@ProgrammerAL at programmerAL.com'
+footer: '@ProgrammerAL'
 ---
 
 <style>
@@ -30,6 +30,8 @@ with AL Rodriguez
 - Mostly Introduction
 - Dissect Container **Images**
 - Talk Image Security
+
+![bg right 80%](presentation-images/presentation_link_qrcode.png)
 
 ---
 
@@ -119,6 +121,8 @@ ENTRYPOINT ["npm", "start"]
   - `docker exec -it <CONTAINER ID> sh`
 - Export the file
   - `docker image save --output <path.tar> <image-name>`
+- CLI Tools
+  - `dive` https://github.com/wagoodman/dive
 
 ---
 
