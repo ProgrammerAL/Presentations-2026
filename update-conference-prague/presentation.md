@@ -90,6 +90,15 @@ with AL Rodriguez
   - Custom internal service maintained by another team
   - Product: Duende IdentityServer, Keycloak
 
+```mermain
+architecture-beta
+    service idp(cloud)[IdP]
+    service client(server)[Web Client]
+    service api(server)[API]
+    
+    client:R -- L:idp
+```
+
 ---
 
 # You Need OAuth!
@@ -109,6 +118,13 @@ with AL Rodriguez
 * User signs in, Allows IdP to send their into to Client App
 * Redirected to Client App with token containing user data
 
+```mermaid
+flowchart TD
+    A[Client Redirects to IdP] --> B(User Signs In)
+    B --> C[Allows Client Access]
+    C --> D[Redirect to Client]
+```
+
 TODO: Show Diagram???
 
 ---
@@ -121,13 +137,64 @@ TODO: Show Diagram???
 
 ---
 
-# Best Practice - Protect the Redirects
+# Best Practice - Protect the Requests
 
-- 
+- Malicious Actor Intercepts the Token
+- Forces Browser to Make Silent Request to Website
+
+```mermaid
+architecture-beta
+    service idp(cloud)[IdP]
+    service client(server)[Web Client]
+    service api(server)[API]
+    service bad(cloud)[Malicious Actor]
+    
+    client:R -- L:bad
+    bad:R -- L:idp
+```
 
 ---
 
-# ???
+# Fix: Protect the Requests
+
+- Cross Site Request Forgery (CSRF)
+- Nonce
+- PKCE
+
+---
+
+# Protect against CSRF Attacks
+
+```text
+Clients MUST prevent Cross-Site Request Forgery (CSRF)...requests to the redirection endpoint that do not originate at the authorization server, but at a malicious third party...
+```
+- Malicious Site with hidden link is
+- Ex: https://important-site.com/callback?code=ATTACKER_CONTROLLED_CODE
+
+---
+
+# Protect with Nonce
+
+---
+
+# Best Practice - Use PKCE
+
+- 
+- Always use PKCE
+
+---
+
+# Even Better Practice: Don't Send Tokens to Uncontrolled Endpoints
+
+```mermaid
+architecture-beta
+    service idp(cloud)[IdP]
+    service client(server)[Web Client]
+    service api(server)[API]
+    
+    client:R -- L:api
+    api:R -- L:idp
+```
 
 ---
 
