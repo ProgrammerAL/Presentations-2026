@@ -124,9 +124,6 @@ flowchart TD
     B --> C[Allows Client Access]
     C --> D[Redirect to Client]
 ```
-
-TODO: Show Diagram???
-
 ---
 
 # Today's Best Practices
@@ -137,8 +134,108 @@ TODO: Show Diagram???
 
 ---
 
-# Best Practice - Protect the Requests
+# Scenario: Attacker Gets a Token
 
+- Real Token was Created for a Valid Use Case
+  - A User Signed In
+- Worst Case Scenario
+  - This ends up in the news
+
+---
+
+# Mitigations: Minimize Token Use
+
+- Minimize Token Blast Radius
+- Verify the Client
+
+---
+
+# Minimize Token Blast Radius: Restrict Audience Claim to App
+
+- Set the Token `aud` claim
+- Retrieve new Token for Machine-to-Machine requests
+- Stops attacker from using token on other APIs
+
+---
+
+# Minimize Token Blast Radius: Restrict Scopes to App Requirement
+
+- Only requests Scopes the app Needs
+- Stops attacker from using token on other endpoints
+
+---
+
+# Verify the Client: Confidential Clients
+
+```text
+Authorization servers SHOULD enforce client authentication if it is feasible
+```
+
+* Don't use Client Secret
+* Client proves to Auth Server it is who it says it is
+* Enable with mTLS or Signed Tokens
+  - No client secret string
+* https://duendesoftware.com/blog/20260903-client-secrets-mutual-tls-and-private-key-jwt
+
+---
+
+# Confidential Client: mTLS
+
+- Purpose: 
+- Mutual TLS
+- Client and Auth Server validate each other with Certificates
+- Most Complex Confidential Client
+
+---
+
+# Confidential Client: Signed JWT
+
+- Purpose: 
+- Client has Public/Private Key
+- Auth Server knows the Public Key
+- Client signs request with Private Key
+  - Auth Server validates with Public Key
+
+---
+
+# When to Skip Confidential Clients
+
+- Very, very, VERY Simple Application
+- Local development work
+
+---
+
+# Verify the Client: Demonstrating Proof of Possession (DPoP)
+
+- Purpose: 
+- Client includes DPoP Proof in Initial Request for Token
+- Auth Server binds Access Token to Public Key from the DPoP Proof
+- For Every Request to API, Client Includes DPoP Proof, API Validates Against Auth Server
+
+- https://duendesoftware.com/blog/20251216-security-lingo-explained-dpop
+
+---
+---
+---
+---
+
+
+---
+
+# Other Recommendations
+
+- Use Auth Server Metadata
+  - Don't hard code anything
+
+TODO: Code Sample with IS
+
+---
+
+# Best Practice: Protect at Request Level
+
+- Attacker in the Middle
+
+- Interactive flow of user signing-in
 - Malicious Actor Intercepts the Token
 - Forces Browser to Make Silent Request to Website
 
@@ -155,32 +252,59 @@ architecture-beta
 
 ---
 
-# Fix: Protect the Requests
+# Protect Requests with...
 
 - Cross Site Request Forgery (CSRF)
 - Nonce
 - PKCE
+* Yes, all 3
 
 ---
 
-# Protect against CSRF Attacks
+# CSRF
 
 ```text
 Clients MUST prevent Cross-Site Request Forgery (CSRF)...requests to the redirection endpoint that do not originate at the authorization server, but at a malicious third party...
 ```
 - Malicious Site with hidden link is
-- Ex: https://important-site.com/callback?code=ATTACKER_CONTROLLED_CODE
+  - Ex: https://important-site.com/callback?code=ATTACKER_CONTROLLED_CODE
+- Random string to gate future request
+  - Request blocked if string is wrong
+- Stops request replay attacks
+- Simple and effective
+
+TODO: Diagram
 
 ---
 
-# Protect with Nonce
+# Nonce
+
+- Purpose: Ensure Final Token from Auth Server
+- Client generates random string `nonce`, includes in initial auth request
+- Final Token includes `nonce`
+- Client validates the Token `nonce` matches value in original request
+
+TODO: Diagram
 
 ---
 
-# Best Practice - Use PKCE
+# PKCE
 
-- 
-- Always use PKCE
+- Purpose: Ensure same client used for all Auth requests during redirects
+- Client generates random string `code_verifier`, includes in requests to Auth Server
+- Auth Server doesn't return `code_verifier`
+  - `code_verifier` can't be intercepted by response
+
+TODO: Diagram
+
+---
+
+# Best Practice: Don't Alow Token Replay
+
+- mTLS
+- DPoP
+- Cycle Refresh Token on each use
+- Access tokens should be audience restricted to application TODO: JWT sample
 
 ---
 
@@ -254,7 +378,12 @@ architecture-beta
 
 ---
 
-# ???
+# FAPI 2.0
+
+- Security Profile targeted towards High Value scenarios
+  - Financial, Health, Government
+- 
+- https://openid.net/specs/fapi-security-profile-2_0-final.html
 
 ---
 
