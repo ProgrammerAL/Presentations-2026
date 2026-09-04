@@ -111,6 +111,19 @@ architecture-beta
 
 ---
 
+# Multiple Types of Tokens
+
+- Access Token
+  - Authorization info like scopes, groups, some user info
+  - Short lifetime
+- Refresh Token
+  - Used to get a new Access Token
+  - Long lifetime
+- Identity Token
+  - User Info, name, email, job title, etc
+
+---
+
 # OAuth Flow the User Sees
 
 * User exists in IdentityProvider (IdP) like IdentityServer, Auth0, Entra, etc
@@ -126,15 +139,15 @@ flowchart TD
 ```
 ---
 
-# Today's Best Practices
+# Who Make Today's Best Practices?
 
-- There's a Standard!
+- A Standards Body
 - RFC 9700 - https://www.rfc-editor.org/info/rfc9700
   - Some things for App Dev, some for IdP
 
 ---
 
-# Scenario: Attacker Gets a Token
+# Scenario: Attacker Gets an Access Token
 
 - Real Token was Created for a Valid Use Case
   - A User Signed In
@@ -143,14 +156,15 @@ flowchart TD
 
 ---
 
-# Mitigations: Minimize Token Use
+# Mitigations: Minimize How Often Tokens Are Used
 
 - Minimize Token Blast Radius
 - Verify the Client
+- Protect Refresh Token
 
 ---
 
-# Minimize Token Blast Radius: Restrict Audience Claim to App
+# Mitigation: Minimize Token Blast Radius: Restrict Audience Claim to App
 
 - Set the Token `aud` claim
 - Retrieve new Token for Machine-to-Machine requests
@@ -158,14 +172,14 @@ flowchart TD
 
 ---
 
-# Minimize Token Blast Radius: Restrict Scopes to App Requirement
+# Mitigation: Minimize Token Blast Radius: Restrict Scopes to App Requirement
 
 - Only requests Scopes the app Needs
 - Stops attacker from using token on other endpoints
 
 ---
 
-# Verify the Client: Confidential Clients
+# Mitigation: Verify the Client: Confidential Clients
 
 ```text
 Authorization servers SHOULD enforce client authentication if it is feasible
@@ -179,7 +193,7 @@ Authorization servers SHOULD enforce client authentication if it is feasible
 
 ---
 
-# Confidential Client: mTLS
+# Mitigation: Verify the Client: Confidential Clients: mTLS
 
 - Purpose: 
 - Mutual TLS
@@ -188,7 +202,7 @@ Authorization servers SHOULD enforce client authentication if it is feasible
 
 ---
 
-# Confidential Client: Signed JWT
+# Mitigation: Verify the Client: Confidential Clients: Signed JWT
 
 - Purpose: 
 - Client has Public/Private Key
@@ -198,14 +212,7 @@ Authorization servers SHOULD enforce client authentication if it is feasible
 
 ---
 
-# When to Skip Confidential Clients
-
-- Very, very, VERY Simple Application
-- Local development work
-
----
-
-# Verify the Client: Demonstrating Proof of Possession (DPoP)
+# Mitigation: Verify the Client: Demonstrating Proof of Possession (DPoP)
 
 - Purpose: 
 - Client includes DPoP Proof in Initial Request for Token
@@ -215,23 +222,33 @@ Authorization servers SHOULD enforce client authentication if it is feasible
 - https://duendesoftware.com/blog/20251216-security-lingo-explained-dpop
 
 ---
----
----
+
+# Mitigation: Protect Refresh Token
+
+- Refresh Tokens == High Value
+- Rotate on each use
+
 ---
 
+# Mitigation: Protect Refresh Token: Extra Credit
+
+- Use Server-Side Sessions
+  - Revoke tokens if leak suspected
 
 ---
 
-# Other Recommendations
+# ???Other Recommendations???
 
 - Use Auth Server Metadata
   - Don't hard code anything
 
 TODO: Code Sample with IS
+TODO: Is this needed? Should it be deleted or moved?
 
 ---
 
-# Best Practice: Protect at Request Level
+# Scenario: Attacker Can See Requests
+<!-- # Best Practice: Protect at Request Level -->
 
 - Attacker in the Middle
 
@@ -252,12 +269,11 @@ architecture-beta
 
 ---
 
-# Protect Requests with...
+# Mitigations: Don't Let Attacker Replay Requests
 
 - Cross Site Request Forgery (CSRF)
 - Nonce
 - PKCE
-* Yes, all 3
 
 ---
 
@@ -310,6 +326,8 @@ TODO: Diagram
 
 # Even Better Practice: Don't Send Tokens to Uncontrolled Endpoints
 
+- ie, Only send tokens to your endpoints
+
 ```mermaid
 architecture-beta
     service idp(cloud)[IdP]
@@ -322,59 +340,44 @@ architecture-beta
 
 ---
 
-# ???
+# Scenario: 
+
+- Bad Redirect
+- Clickjacking aka User Interface Redressing
 
 ---
 
-# ???
-* Why is it a "Best Practice?"
+# Mitigations: Ensure Client Communicates with You
+
+- Don't let client choose redirectors (Avoid HTTP 307)
+- Context Security Policy (CSP)
 
 ---
 
-# ???
+# Mitigation: Ensure Client Communicates with You: Avoid HTTP 307
+
+1. User submits credentials
+1. Auth Server Accepts, returns a Redirect
+
+- With HTTP 307 (Temporary Redirect), same request sent
+  - Includes user credentials
+- Mitigation: Use HTTP 302 (Found)
+  - New request, doesn't include credentials
 
 ---
 
-# Scenario
+# Mitigation: Ensure Client Communicates with You: CSP
 
-- It's in the spec!
-  - https://www.rfc-editor.org/info/rfc9700/#section-4.5
-
----
-
-# PKCE
-
-- Private Key 
+- For Clickjacking Attack
+- CSP: Website can only talk to known endpoints
 
 ---
 
-# ???
+# Security Profiles
 
----
-
-# ???
-
----
-
-# ???
-
----
-
-# ???
-
----
-
-# Best Practice - Validate the JWT
-
-- TODO: Mention JWKS here???
-
----
-
-# ???
-
----
-
-# ???
+- For specific scenarios
+- Profiles
+  - FAPI
 
 ---
 
@@ -396,5 +399,9 @@ architecture-beta
 ---
 
 # Review
+
+- Secure your clients
+- Don't let requests get replayed
+- ???
 
 ![bg right 80%](presentation-images/presentation_link_qrcode.png)
