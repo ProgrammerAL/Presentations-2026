@@ -25,10 +25,19 @@ with AL Rodriguez
 
 ---
 
+# Duende Software
+
+- Full Disclosure: They pay me (but I like them anyway)
+  - Customer Success Engineer
+- Demos use IdentityServer
+
+![bg right 80%](presentation-images/presentation_link_qrcode.png)
+
+---
+
 # Shameless Self Promotion
 
 - @ProgrammerAL and https://ProgrammerAL.com
-- Customer Success Engineer at Duende Software
 - Freelance Affiliate at https://globalGlob.dev 
   - Index 0 for Dev News
 
@@ -38,29 +47,28 @@ with AL Rodriguez
 
 # Why are we here?
 
-- AuthN - Trusting Who a User Is
 - Best Practices of AuthN
+- AuthN - Trusting Who a User Is
 
 ---
 
 # What is a "Best Practice"?
 
 - __*Usually*__ a good idea
-- Can be the default
-- Might not be what you need, depends on your use case
+- A sensible default
+- Not always what you need, depends on your use case
 - When you're not sure:
-  * pay a consultant
+  - do more research
+  - pay a consultant
 
 ---
 
-# Where to Start?
+# Where do we start to understand AuthN?
 
 - OAuth?
   - 1.0 vs 2.0 vs 2.1?
 - OIDC?
 - Is SAML still secure?
-* The consultant's answer is...
-  * Depends on your scenario
 
 ---
 
@@ -70,7 +78,8 @@ with AL Rodriguez
   - Nothing Else
 - No Backend API
   - Requests made directly through the Web App
-- Users stored in your database
+  - ie Server Side Rendering
+- Users stored in your own database
 
 ---
 
@@ -103,15 +112,13 @@ architecture-beta
 
 # You Need OAuth!
 
-* It Depends!
-* Just Kidding, you need OAuth
-  - Open Standard for Access Delegation
-* User Data lives in dedicated service (IdentityProvider)
-* User needs to sign in to 1+ clients
+- Open Standard for Access Delegation
+- User Data lives in dedicated service, the IdentityProvider
+- User needs to sign in to 1+ clients
 
 ---
 
-# Multiple Types of Tokens
+# OAuth Uses Multiple Types of Tokens
 
 - Access Token
   - Authorization info like scopes, groups, some user info
@@ -129,7 +136,7 @@ architecture-beta
 * User exists in IdentityProvider (IdP) like IdentityServer, Auth0, Entra, etc
 * Client App has user to sign in - Redirects to IdP
 * User signs in, Allows IdP to send their into to Client App
-* Redirected to Client App with token containing user data
+* Redirected to Client App with tokens
 
 ```mermaid
 flowchart TD
@@ -139,7 +146,7 @@ flowchart TD
 ```
 ---
 
-# Who Make Today's Best Practices?
+# Who Made Today's Best Practices?
 
 - A Standards Body
 - RFC 9700 - https://www.rfc-editor.org/info/rfc9700
@@ -147,16 +154,27 @@ flowchart TD
 
 ---
 
-# Scenario: Attacker Gets an Access Token
+# Reminder: Security has Layers
 
-- Real Token was Created for a Valid Use Case
-  - A User Signed In
-- Worst Case Scenario
-  - This ends up in the news
+- Nothing is 100% Perfect
+- Mitigations built on mitigations built on mitigations built on...
+
+![bg right 100%](presentation-images/security-layers.svg)
 
 ---
 
-# Mitigations: Minimize How Often Tokens Are Used
+# Attack Scenario 1: Attacker Gets Access Token
+
+- Real Token was Created for a Valid Use Case
+  - A User Signed In
+  - Typed their credentials/ Used MFA / Maybe used Passkey
+- How can you tell the token is leaked?
+  * You can't! Nothing guaranteed anyway
+
+---
+
+# Attacker Gets Access Token Mitigation: 
+## Minimize Where Tokens Accepted
 
 - Minimize Token Blast Radius
 - Verify the Client
@@ -164,47 +182,51 @@ flowchart TD
 
 ---
 
-# Mitigation: Minimize Token Blast Radius: Restrict Audience Claim to App
+# Attacker Gets Access Token Mitigation: 
+## Minimize Token Blast Radius: Restrict Audience Claim to App
 
+- Result: Stop attacker from using token on other APIs
 - Set the Token `aud` claim
-- Retrieve new Token for Machine-to-Machine requests
-- Stops attacker from using token on other APIs
+- Retrieve new Token for each API
+  - Machine-to-Machine requests
+<!-- TODO: JWT Sample -->
+<!-- TODO: Diagram showing API getting new JWT -->
 
 ---
 
-# Mitigation: Minimize Token Blast Radius: Restrict Scopes to App Requirement
+# Attacker Gets Access Token Mitigation: 
+## Minimize Token Blast Radius: Restrict Scopes to App Requirement
 
+- Result: Stops attacker from using token on other endpoints
 - Only requests Scopes the app Needs
-- Stops attacker from using token on other endpoints
 
 ---
 
-# Mitigation: Verify the Client: Confidential Clients
+# Attacker Gets Access Token Mitigation: 
+## Verify the Client: Confidential Clients
 
 ```text
 Authorization servers SHOULD enforce client authentication if it is feasible
 ```
-
-* Don't use Client Secret
-* Client proves to Auth Server it is who it says it is
-* Enable with mTLS or Signed Tokens
+- Result: Don't Let Anyone Make Custom Clients (custom script)
+- Client proves to Auth Server it is who it says it is
+- Enabled with mTLS or Signed Tokens
   - No client secret string
-* https://duendesoftware.com/blog/20260903-client-secrets-mutual-tls-and-private-key-jwt
+- https://duendesoftware.com/blog/20260903-client-secrets-mutual-tls-and-private-key-jwt
 
 ---
 
-# Mitigation: Verify the Client: Confidential Clients: mTLS
+# Attacker Gets Access Token Mitigation: 
+## Verify the Client: Confidential Clients: mTLS aka Mutual TLS
 
-- Purpose: 
-- Mutual TLS
 - Client and Auth Server validate each other with Certificates
 - Most Complex Confidential Client
 
 ---
 
-# Mitigation: Verify the Client: Confidential Clients: Signed JWT
+# Attacker Gets Access Token Mitigation: 
+## Verify the Client: Confidential Clients: Signed JWT
 
-- Purpose: 
 - Client has Public/Private Key
 - Auth Server knows the Public Key
 - Client signs request with Private Key
@@ -212,46 +234,37 @@ Authorization servers SHOULD enforce client authentication if it is feasible
 
 ---
 
-# Mitigation: Verify the Client: Demonstrating Proof of Possession (DPoP)
+# Attacker Gets Access Token Mitigation: 
+## Verify the Client: Demonstrating Proof of Possession (DPoP)
 
-- Purpose: 
+- Result: API knows token always comes from same client, isn't leaked to someone else
+  - Note: In addition to Signed JWT/mTLS
 - Client includes DPoP Proof in Initial Request for Token
 - Auth Server binds Access Token to Public Key from the DPoP Proof
 - For Every Request to API, Client Includes DPoP Proof, API Validates Against Auth Server
-
 - https://duendesoftware.com/blog/20251216-security-lingo-explained-dpop
 
 ---
 
-# Mitigation: Protect Refresh Token
+# Attacker Gets Access Token Mitigation: 
+## Protect Refresh Token
 
-- Refresh Tokens == High Value
 - Rotate on each use
+- Refresh Tokens == High Value
 
 ---
 
-# Mitigation: Protect Refresh Token: Extra Credit
+# Attacker Gets Access Token Mitigation: 
+## Protect Refresh Token: Server-Side Sessions
 
-- Use Server-Side Sessions
-  - Revoke tokens if leak suspected
-
----
-
-# ???Other Recommendations???
-
-- Use Auth Server Metadata
-  - Don't hard code anything
-
-TODO: Code Sample with IS
-TODO: Is this needed? Should it be deleted or moved?
+- Lets You Revoke tokens if needed
 
 ---
 
-# Scenario: Attacker Can See Requests
+# Attack Scenario 2: Attacker Can See Requests
 <!-- # Best Practice: Protect at Request Level -->
 
 - Attacker in the Middle
-
 - Interactive flow of user signing-in
 - Malicious Actor Intercepts the Token
 - Forces Browser to Make Silent Request to Website
@@ -269,64 +282,64 @@ architecture-beta
 
 ---
 
-# Mitigations: Don't Let Attacker Replay Requests
+# Attacker Can See Requests Mitigation: 
+## Don't Let Attacker Replay Requests
 
 - Cross Site Request Forgery (CSRF)
 - Nonce
 - PKCE
+- Use All 3
 
 ---
 
-# CSRF
+# Attacker Can See Requests Mitigation: 
+## Don't Let Attacker Replay Requests: CSRF
 
 ```text
 Clients MUST prevent Cross-Site Request Forgery (CSRF)...requests to the redirection endpoint that do not originate at the authorization server, but at a malicious third party...
 ```
+- Result: Stops request replay attacks, CSRF changes on each page load
+  - Simple and effective
 - Malicious Site with hidden link is
   - Ex: https://important-site.com/callback?code=ATTACKER_CONTROLLED_CODE
 - Random string to gate future request
   - Request blocked if string is wrong
-- Stops request replay attacks
-- Simple and effective
 
-TODO: Diagram
+<!-- TODO: Diagram -->
 
 ---
 
-# Nonce
+# Attacker Can See Requests Mitigation: 
+## Don't Let Attacker Replay Requests: Nonce
 
-- Purpose: Ensure Final Token from Auth Server
-- Client generates random string `nonce`, includes in initial auth request
+- Result: Client Security, Ensures Client Requests With Same Auth Server
+- Number Used Once
+- Client generates random string `nonce`
+  - Included in initial auth request
 - Final Token includes `nonce`
 - Client validates the Token `nonce` matches value in original request
 
-TODO: Diagram
+<!-- TODO: Diagram or JWT -->
 
 ---
 
-# PKCE
+# Attacker Can See Requests Mitigation: 
+## Don't Let Attacker Replay Requests: PKCE
 
-- Purpose: Ensure same client used for all Auth requests during redirects
-- Client generates random string `code_verifier`, includes in requests to Auth Server
+- Purpose: Ensure same client used for all Auth requests
+- Client generates random string `code_verifier`
+  - Included in requests to Auth Server
 - Auth Server doesn't return `code_verifier`
   - `code_verifier` can't be intercepted by response
 
-TODO: Diagram
+<!-- TODO: Diagram -->
 
 ---
 
-# Best Practice: Don't Alow Token Replay
+# Even Better Practice: 
+## Don't Send Tokens to Uncontrolled Endpoints
 
-- mTLS
-- DPoP
-- Cycle Refresh Token on each use
-- Access tokens should be audience restricted to application TODO: JWT sample
-
----
-
-# Even Better Practice: Don't Send Tokens to Uncontrolled Endpoints
-
-- ie, Only send tokens to your endpoints
+- ie, Only send tokens to YOUR endpoints
 
 ```mermaid
 architecture-beta
@@ -340,68 +353,72 @@ architecture-beta
 
 ---
 
-# Scenario: 
+# Attack Scenario 3: Client Used Malicious Input Values
 
 - Bad Redirect
 - Clickjacking aka User Interface Redressing
 
 ---
 
-# Mitigations: Ensure Client Communicates with You
+# Client Used Malicious Input Values Mitigations: Ensure Client Communicates with You
 
 - Don't let client choose redirectors (Avoid HTTP 307)
 - Context Security Policy (CSP)
 
 ---
 
-# Mitigation: Ensure Client Communicates with You: Avoid HTTP 307
+# Client Used Malicious Input Values Mitigation: Ensure Client Communicates with You: 
+## Avoid HTTP 307
 
-1. User submits credentials
-1. Auth Server Accepts, returns a Redirect
+- Scenario:
+  1. User submits credentials
+  1. Auth Server Accepts, returns a Redirect
 
-- With HTTP 307 (Temporary Redirect), same request sent
+- With HTTP 307 (Temporary Redirect), browser sends same request
   - Includes user credentials
 - Mitigation: Use HTTP 302 (Found)
   - New request, doesn't include credentials
 
 ---
 
-# Mitigation: Ensure Client Communicates with You: CSP
+# Client Used Malicious Input Values Mitigation: Ensure Client Communicates with You: 
+## CSP aka Client Security Policy
 
-- For Clickjacking Attack
 - CSP: Website can only talk to known endpoints
+- For Clickjacking Attack
+- Malicious JS ends up in your frontend
+  - Ex: Hacked NPM package
 
 ---
 
-# Security Profiles
+# Extra Credit: 
+## FAPI 2.0
 
-- For specific scenarios
-- Profiles
-  - FAPI
-
----
-
-# FAPI 2.0
-
-- Security Profile targeted towards High Value scenarios
+- Security Profile
+- High Value Scenarios
   - Financial, Health, Government
-- 
 - https://openid.net/specs/fapi-security-profile-2_0-final.html
 
 ---
 
-# ???
+# Extra Credit: 
+## Backend For Frontend Pattern
+
+- Don't store tokens in client
 
 ---
 
-# A.I.?
+# How about tokens for A.I.?
+
+- Spec in progress, nothing official yet
+- General Practice: Nothing Changes Much
 
 ---
 
 # Review
 
+- Limit where tokens can be used
 - Secure your clients
 - Don't let requests get replayed
-- ???
 
 ![bg right 80%](presentation-images/presentation_link_qrcode.png)
