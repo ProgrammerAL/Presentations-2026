@@ -29,7 +29,7 @@ with AL Rodriguez
 
 - Full Disclosure: They pay me (but I like them anyway)
   - Customer Success Engineer
-- Demos use IdentityServer
+- Demos use Duende IdentityServer
 
 ![bg right 80%](presentation-images/presentation_link_qrcode.png)
 
@@ -47,8 +47,7 @@ with AL Rodriguez
 
 # Why are we here?
 
-- Best Practices of AuthN
-- AuthN - Trusting Who a User Is
+- Best Practices of handling OAuth
 
 ---
 
@@ -77,36 +76,60 @@ with AL Rodriguez
 - Users sign in to your Web App
   - Nothing Else
 - No Backend API
-  - Requests made directly through the Web App
+  - Requests directly through Web App
   - ie Server Side Rendering
 - Users stored in your own database
+![bg right 80%](presentation-images/simple-app-diagram.svg)
+
+<!--
+```mermaid
+architecture-beta
+    service client(server)[Web Client]
+    service api(server)[API]
+    service db(database)[Database]
+    
+    client:R -- L:api
+    api:R -- L:db
+```
+-->
 
 ---
 
 # What do you need?
 
 - Nothing! 
-- Use an OSS library to authenticate users
+- Use an OSS library for modern authentication
+  - Passkeys
+  - MFA
 
 ---
 
 # Scenario: Today's Standard App
 
-- Backend API and Front End Web UI
+- 1+ Backend APIs/2+ Clients
   - Maintained by separate teams
-- Users stored somewhere else
+- Users stored elsewhere
   - SaaS platform
-  - Custom internal service maintained by another team
+  - Custom internal service
   - Product: Duende IdentityServer, Keycloak
 
-```mermain
+![bg right 80%](presentation-images/todays-standard-app-diagram.svg)
+
+<!-- 
+```mermaid
 architecture-beta
-    service idp(cloud)[IdP]
     service client(server)[Web Client]
+    service admin(server)[Admin Client]
     service api(server)[API]
+    service idp(cloud)[IdP]
     
     client:R -- L:idp
+    client:R -- L:api
+
+    admin:L -- R:idp
+    admin:L -- R:api
 ```
+-->
 
 ---
 
@@ -115,6 +138,26 @@ architecture-beta
 - Open Standard for Access Delegation
 - User Data lives in dedicated service, the IdentityProvider
 - User needs to sign in to 1+ clients
+
+---
+
+# OAuth Flow the User Sees
+
+- 4 Steps involving redirects
+  - User stored in IdentityProvider (IdP)
+  - IdentityServer, Auth0, Entra, etc
+- User goes through OAuth Flow to sign in and receive token
+
+![bg right 50%](presentation-images/oauth-flow.svg)
+
+<!-- 
+```mermaid
+flowchart TD
+    A[User Initiates Sign-In in Client] -\-> B[Client Redirects to IdP]
+    B -\-> C[Allows Client Access]
+    C -\-> D[Redirect to Client]
+```
+-->
 
 ---
 
@@ -131,19 +174,35 @@ architecture-beta
 
 ---
 
-# OAuth Flow the User Sees
+# Example Access Token
 
-* User exists in IdentityProvider (IdP) like IdentityServer, Auth0, Entra, etc
-* Client App has user to sign in - Redirects to IdP
-* User signs in, Allows IdP to send their into to Client App
-* Redirected to Client App with tokens
-
-```mermaid
-flowchart TD
-    A[Client Redirects to IdP] --> B(User Signs In)
-    B --> C[Allows Client Access]
-    C --> D[Redirect to Client]
+#### Header
+```json
+{
+  "alg": "RS256",
+  "kid": "D657784EB10243008DBE5224EC87A57F", 
+  "x5t": "h1G6E4kbIx--_cPHtzXanTOfjVg",
+  "typ": "at+jwt" // Token type: Access Token
+}
 ```
+
+#### Payload
+```json
+{
+  "iss": "https://demo.duendesoftware.com", // Issuer of the JWT, typically the authorization server
+  "nbf": 1789514847, // 9/15/2026, 7:27:27 PM. Not before time, in seconds since epoch
+  "iat": 1789514847, // 9/15/2026, 7:27:27 PM. Issued at time, in seconds since epoch
+  "exp": 1789518447, // 9/15/2026, 8:27:27 PM. Expiration time, in seconds since epoch
+  "aud": "api", // Recipient(s) for which the JWT is intended
+  "scope": [
+  "api"
+  ],
+  "client_id": "m2m",
+  "jti": "97368E65C55084C009FA3397F943ED58" // JWT ID, a unique identifier for the JWT
+}
+```
+
+
 ---
 
 # Who Made Today's Best Practices?
@@ -401,17 +460,21 @@ architecture-beta
 
 ---
 
-# Extra Credit: 
+# Extra Credit: RFC 10017 aka BCP 212
 ## Backend For Frontend Pattern
 
 - Don't store tokens in client
+- Proxy requests through a single backend to other backends
+- https://duendesoftware.com/blog/the-backend-for-frontend-pattern-is-now-official-ietf-guidance-rfc-10017-published
 
 ---
 
-# How about tokens for A.I.?
+# Anything about A.I.?
 
-- Spec in progress, nothing official yet
-- General Practice: Nothing Changes Much
+- No spec yet, in progress
+- General Practice: 
+  - Nothing Changes Much
+  - Follow OAuth best practices
 
 ---
 
