@@ -44,12 +44,82 @@ with AL Rodriguez
 
 ---
 
-# Why are we here?
+# globalGlob(*\*/\*)
+
+- Satire
+- Articles/Videos/Newsletter
+- Deployed December 2025
+
+---
+
+# Typical Static Site Generator
+
+- Build Time
+- Astro/Hugo/Jekyll/11ty
+
+---
+
+# What if I made my own static site generator?
+
+* And made it crazy?!
+
+---
+
+# My Vision
+
+- Blog Site
+- Users upload a post
+- Site generates the HTML, stores in cloud storage
+- All requests receive that HTML
+- Started work in 2017
+
+---
+
+# There were problems
+
+- How do you update the HTML?
+- 
+- 
+- Idea Abandoned: 2017
+
+---
+
+# Website Backend
+
+---
+
+# Website Frontend
+
+- Static site
+- Main Pages Static Code
+- Dynamic Pages are generated when published or updated
+  - Articles, Index, and Category pages
+
+---
+
+# What it Lighthouse?
 
 
 
 ---
 
+TODO: Lighthouse Scores An Astro Site
+
+---
+
+TODO: Lighthouse Scores Bluesky
+
+---
+
+TODO: Lighthouse Scores Something Else
+
+---
+
+
+# Short Answer
+
+- Do Less Work
+- "When" matters
 
 ---
 

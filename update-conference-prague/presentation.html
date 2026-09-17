@@ -169,26 +169,22 @@
 </section>
 </foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="13" data-paginate="true" data-footer="@ProgrammerAL" data-theme="default" lang="en-US" data-marpit-pagination="13" style="--paginate:true;--footer:@ProgrammerAL;--theme:default;" data-marpit-pagination-total="39">
 <h1 id="example-access-token">Example Access Token</h1>
-<h4 id="header">Header</h4>
-<pre is="marp-pre" data-auto-scaling="downscale-only"><code class="language-json"><span class="hljs-punctuation">{</span>
+<pre is="marp-pre" data-auto-scaling="downscale-only"><code class="language-json"><span class="hljs-comment">//Header</span>
+<span class="hljs-punctuation">{</span>
   <span class="hljs-attr">&quot;alg&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;RS256&quot;</span><span class="hljs-punctuation">,</span>
   <span class="hljs-attr">&quot;kid&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;D657784EB10243008DBE5224EC87A57F&quot;</span><span class="hljs-punctuation">,</span> 
   <span class="hljs-attr">&quot;x5t&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;h1G6E4kbIx--_cPHtzXanTOfjVg&quot;</span><span class="hljs-punctuation">,</span>
   <span class="hljs-attr">&quot;typ&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;at+jwt&quot;</span> <span class="hljs-comment">// Token type: Access Token</span>
 <span class="hljs-punctuation">}</span>
-</code></pre>
-<h4 id="payload">Payload</h4>
-<pre is="marp-pre" data-auto-scaling="downscale-only"><code class="language-json"><span class="hljs-punctuation">{</span>
-  <span class="hljs-attr">&quot;iss&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;https://demo.duendesoftware.com&quot;</span><span class="hljs-punctuation">,</span> <span class="hljs-comment">// Issuer of the JWT, typically the authorization server</span>
-  <span class="hljs-attr">&quot;nbf&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-number">1789514847</span><span class="hljs-punctuation">,</span> <span class="hljs-comment">// 9/15/2026, 7:27:27 PM. Not before time, in seconds since epoch</span>
-  <span class="hljs-attr">&quot;iat&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-number">1789514847</span><span class="hljs-punctuation">,</span> <span class="hljs-comment">// 9/15/2026, 7:27:27 PM. Issued at time, in seconds since epoch</span>
-  <span class="hljs-attr">&quot;exp&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-number">1789518447</span><span class="hljs-punctuation">,</span> <span class="hljs-comment">// 9/15/2026, 8:27:27 PM. Expiration time, in seconds since epoch</span>
-  <span class="hljs-attr">&quot;aud&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;api&quot;</span><span class="hljs-punctuation">,</span> <span class="hljs-comment">// Recipient(s) for which the JWT is intended</span>
-  <span class="hljs-attr">&quot;scope&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span>
-  <span class="hljs-string">&quot;api&quot;</span>
-  <span class="hljs-punctuation">]</span><span class="hljs-punctuation">,</span>
-  <span class="hljs-attr">&quot;client_id&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;m2m&quot;</span><span class="hljs-punctuation">,</span>
-  <span class="hljs-attr">&quot;jti&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;97368E65C55084C009FA3397F943ED58&quot;</span> <span class="hljs-comment">// JWT ID, a unique identifier for the JWT</span>
+<span class="hljs-comment">//Payload</span>
+<span class="hljs-punctuation">{</span>
+  <span class="hljs-attr">&quot;iss&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;https://demo.duendesoftware.com&quot;</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">&quot;nbf&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-number">1789514847</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">&quot;iat&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-number">1789514847</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">&quot;exp&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-number">1789518447</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">&quot;scope&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span> <span class="hljs-string">&quot;api&quot;</span> <span class="hljs-punctuation">]</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">&quot;client_id&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;my-client&quot;</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">&quot;jti&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;97368E65C55084C009FA3397F943ED58&quot;</span>
 <span class="hljs-punctuation">}</span>
 </code></pre>
 <footer>@ProgrammerAL</footer>

@@ -176,33 +176,25 @@ flowchart TD
 
 # Example Access Token
 
-#### Header
 ```json
+//Header
 {
   "alg": "RS256",
   "kid": "D657784EB10243008DBE5224EC87A57F", 
   "x5t": "h1G6E4kbIx--_cPHtzXanTOfjVg",
   "typ": "at+jwt" // Token type: Access Token
 }
-```
-
-#### Payload
-```json
+//Payload
 {
-  "iss": "https://demo.duendesoftware.com", // Issuer of the JWT, typically the authorization server
-  "nbf": 1789514847, // 9/15/2026, 7:27:27 PM. Not before time, in seconds since epoch
-  "iat": 1789514847, // 9/15/2026, 7:27:27 PM. Issued at time, in seconds since epoch
-  "exp": 1789518447, // 9/15/2026, 8:27:27 PM. Expiration time, in seconds since epoch
-  "aud": "api", // Recipient(s) for which the JWT is intended
-  "scope": [
-  "api"
-  ],
-  "client_id": "m2m",
-  "jti": "97368E65C55084C009FA3397F943ED58" // JWT ID, a unique identifier for the JWT
+  "iss": "https://demo.duendesoftware.com",
+  "nbf": 1789514847,
+  "iat": 1789514847,
+  "exp": 1789518447,
+  "scope": [ "api" ],
+  "client_id": "my-client",
+  "jti": "97368E65C55084C009FA3397F943ED58"
 }
 ```
-
-
 ---
 
 # Who Made Today's Best Practices?
