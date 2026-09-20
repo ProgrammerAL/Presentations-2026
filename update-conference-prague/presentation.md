@@ -45,6 +45,15 @@ with AL Rodriguez
 
 ---
 
+# Why are we here?
+
+- "Best Practices" of securing Authentication
+- How to minimize attack surface
+- Ensure Trust between systems
+  - Idp, APIs, Clients
+
+---
+
 # What is a "Best Practice"?
 
 - __*Usually*__ a good idea
@@ -132,6 +141,10 @@ architecture-beta
 - IdentityProvider Service manages User Authentication
 - User Data lives in dedicated service
 - User needs to sign in to 1+ clients (Single Sign-On)
+- Complex 
+  - Multiple services interacting
+  - Usually not owned by same groups
+  - Each application must be told to trust other applications
 
 ---
 
@@ -168,7 +181,28 @@ flowchart TD
 
 ---
 
-# Example Access Token
+# Generalized API Token Validation Flow
+
+- API must validate token
+  - Not Modified
+  - From trusted source - IdP
+  - Has permissions to perform request
+
+![bg right 50%](presentation-images/api-token-validation-flow.svg)
+
+<!-- 
+```mermaid
+flowchart TD
+    A[User Signs In, Retrieves Access and Refresh Tokens] -\-> B[User Makes Request to API, includes Access Token]
+    B -\-> C[API Validates Access Token]@{ shape: diamond}
+    C -\-> D[Valid Token, Processes Request]
+    C -\-> E[Invalid Token, Return Error]
+```
+-->
+
+---
+
+# Example JWT Access Token
 
 ```json
 //Header
@@ -181,17 +215,18 @@ flowchart TD
 //Payload
 {
   "iss": "https://demo.duendesoftware.com",
-  "nbf": 1789514847,
   "iat": 1789514847,
   "exp": 1789518447,
   "scope": [ "api" ],
-  "client_id": "my-client",
-  "jti": "97368E65C55084C009FA3397F943ED58"
+  ...
 }
+//Signature
+`D7MUrmkuHjni9Z6w......`
 ```
+
 ---
 
-# Who Made Today's Best Practices?
+# Where do these Best Practices come from?
 
 - A Standards Body
 - RFC 9700 - https://www.rfc-editor.org/info/rfc9700
@@ -217,6 +252,17 @@ flowchart TD
 
 ---
 
+# Leaked Tokens Are Common
+
+- OpenAI Employees Tokens Stolen from Discourse Server
+  - https://www.hacktron.ai/blog/hacking-openai
+- Hacked LiteLLM Python Package Steals Developer Credentials
+  - https://www.bleepingcomputer.com/news/security/popular-litellm-pypi-package-compromised-in-teampcp-supply-chain-attack/
+- Stolen Salesloft OAuth tokens used to steal data from Salesforce
+  - https://www.bleepingcomputer.com/news/security/salesloft-breached-to-steal-oauth-tokens-for-salesforce-data-theft-attacks/
+
+---
+
 # Attacker Gets Access Token Mitigation: 
 ## Minimize Where Tokens Accepted
 
@@ -229,20 +275,88 @@ flowchart TD
 # Attacker Gets Access Token Mitigation: 
 ## Minimize Token Blast Radius: Restrict Audience Claim to App
 
-- Result: Stop attacker from using token on other APIs
+- Purpose: Stop attacker from using token on other APIs
 - Set the Token `aud` claim
 - Retrieve new Token for each API
   - Machine-to-Machine requests
-<!-- TODO: JWT Sample -->
-<!-- TODO: Diagram showing API getting new JWT -->
+
+![bg right 100%](presentation-images/jwt-aud-claim.png)
+
+<!--
+{
+  "aud": "users-api"
+  "iss": "https://demo.duendesoftware.com",
+  "iat": 1789514847,
+  "exp": 1789518447,
+  "scope": [ "api" ],
+  ...
+} 
+-->
+
+---
+
+# Attacker Gets Access Token Mitigation: 
+## Minimize Token Blast Radius: Restrict Audience Claim to App
+### Before and After
+
+![bg left 100%](presentation-images/same-token-on-all-apis.svg)
+
+<!-- architecture-beta
+    service client(server)[Web Client]
+    service api1(server)[API 1]
+    service api2(server)[API 2]
+    service api3(server)[API 3]
+    service idp(cloud)[IdP]
+    
+    client:R -- L:idp
+    client:R -- L:api1
+    api1:R -- L:api2
+    api2:R -- L:api3
+
+    align row api1 api2 api3 -->
+
+![bg right 100%](presentation-images/new-token-per-api.svg)
+
+<!-- 
+architecture-beta
+    service client(server)[Web Client]
+    service api1(server)[API 1]
+    service api2(server)[API 2]
+    service api3(server)[API 3]
+    service idp(cloud)[IdP]
+    
+    client:R -- L:idp
+    client:R -- L:api1
+    api1:R -- L:api2
+    api2:R -- L:api3
+
+    api1:T -- R:idp
+    api2:T -- R:idp
+    api3:T -- R:idp
+
+    align row api1 api2 api3 
+    -->
 
 ---
 
 # Attacker Gets Access Token Mitigation: 
 ## Minimize Token Blast Radius: Restrict Scopes to App Requirement
 
-- Result: Stops attacker from using token on other endpoints
+- Purpose: Stop attacker from using token on other endpoints
 - Client only requests Scopes the app needs
+
+![bg right 100%](presentation-images/too-many-scopes.png)
+
+<!--
+{
+  "aud": "users-api"
+  "iss": "https://demo.duendesoftware.com",
+  "iat": 1789514847,
+  "exp": 1789518447,
+  "scope": [ "user", "read", "write", "admin", "inventory:read", "inventory:write", "inventory:delete" ],
+  ...
+} 
+-->
 
 ---
 
@@ -252,7 +366,7 @@ flowchart TD
 ```text
 Authorization servers SHOULD enforce client authentication if it is feasible
 ```
-- Result: Don't Let Anyone Make Custom Clients (custom script)
+- Purpose: Don't Let Anyone Make Custom Clients (custom script)
 - Client proves to Auth Server it is who it says it is
 - Enabled with mTLS or Signed Tokens
   - No client secret string
@@ -266,27 +380,56 @@ Authorization servers SHOULD enforce client authentication if it is feasible
 - Client and Auth Server validate each other with Certificates
 - Most Complex Confidential Client
 
+![bg right 100%](presentation-images/mtls-flow.svg)
+
+<!-- 
+sequenceDiagram
+    API Client ->>+IdP: mTLS Handshake
+    Note over API Client,IdP: IdP - Verify Client Certificate
+    IdP->>+API Client:
+    API Client ->>+IdP: Request Access Token
+    IdP->>+API Client: 
+-->
+
+
 ---
 
 # Attacker Gets Access Token Mitigation: 
 ## Verify the Client: Confidential Clients: Signed JWT
 
-- Client has Public/Private Key
-- Auth Server knows the Public Key
-- Client signs request with Private Key
-  - Auth Server validates with Public Key
+- No certificate infrastructure to manage
+
+![bg right 100%](presentation-images/signed-jwt-flow.svg)
+
+<!-- ```
+sequenceDiagram
+    Note over API Client: Owns Public/Private Key
+    Note over IdP: Knows Public Key
+    API Client ->>+IdP: Build Assertion from Private Key
+    Note over IdP: Validates with Public Key
+    IdP->>+API Client:Responds with Access Token
+``` -->
 
 ---
 
 # Attacker Gets Access Token Mitigation: 
 ## Verify the Client: Demonstrating Proof of Possession (DPoP)
 
-- Result: API knows token always comes from same client, isn't leaked to someone else
+- Purpose: API knows token always comes from same client, isn't leaked to someone else
   - Note: In addition to Signed JWT/mTLS
-- Client includes DPoP Proof in Initial Request for Token
-- Auth Server binds Access Token to Public Key from the DPoP Proof
-- For Every Request to API, Client Includes DPoP Proof, API Validates Against Auth Server
 - https://duendesoftware.com/blog/20251216-security-lingo-explained-dpop
+
+![bg right 100%](presentation-images/dpop-flow.svg)
+
+<!-- 
+sequenceDiagram
+    Note over Client: Generates DPoP Proof
+    Client ->>+IdP: Requests Token - Includes DPoP Proof
+    IdP->>+Client:Returns Access Token Bound to DPoP Proof
+    Client ->>+API: Makes Request
+    API->>+IdP: Validate DPoP Proof
+    Note over API: Process Request 
+-->
 
 ---
 
