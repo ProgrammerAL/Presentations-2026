@@ -45,12 +45,6 @@ with AL Rodriguez
 
 ---
 
-# Why are we here?
-
-- Best Practices of handling OAuth
-
----
-
 # What is a "Best Practice"?
 
 - __*Usually*__ a good idea
@@ -59,15 +53,6 @@ with AL Rodriguez
 - When you're not sure:
   - do more research
   - pay a consultant
-
----
-
-# Where do we start to understand AuthN?
-
-- OAuth?
-  - 1.0 vs 2.0 vs 2.1?
-- OIDC?
-- Is SAML still secure?
 
 ---
 
@@ -120,14 +105,22 @@ architecture-beta
 architecture-beta
     service client(server)[Web Client]
     service admin(server)[Admin Client]
-    service api(server)[API]
+    service api1(server)[API 1]
+    service api2(server)[API 2]
+    service api3(server)[API 3]
     service idp(cloud)[IdP]
     
     client:R -- L:idp
-    client:R -- L:api
+    client:R -- L:api1
+    client:R -- L:api2
+    client:R -- L:api3
 
     admin:L -- R:idp
-    admin:L -- R:api
+    admin:L -- R:api1
+    admin:L -- R:api2
+    admin:L -- R:api3
+
+    align column idp api1 api2 api3
 ```
 -->
 
@@ -136,12 +129,13 @@ architecture-beta
 # You Need OAuth!
 
 - Open Standard for Access Delegation
-- User Data lives in dedicated service, the IdentityProvider
-- User needs to sign in to 1+ clients
+- IdentityProvider Service manages User Authentication
+- User Data lives in dedicated service
+- User needs to sign in to 1+ clients (Single Sign-On)
 
 ---
 
-# OAuth Flow the User Sees
+# Generalized OAuth Flow the User Sees
 
 - 4 Steps involving redirects
   - User stored in IdentityProvider (IdP)
@@ -155,7 +149,7 @@ architecture-beta
 flowchart TD
     A[User Initiates Sign-In in Client] -\-> B[Client Redirects to IdP]
     B -\-> C[Allows Client Access]
-    C -\-> D[Redirect to Client]
+    C -\-> D[Redirect to Client with Token]
 ```
 -->
 
@@ -220,7 +214,6 @@ flowchart TD
   - A User Signed In
   - Typed their credentials/ Used MFA / Maybe used Passkey
 - How can you tell the token is leaked?
-  * You can't! Nothing guaranteed anyway
 
 ---
 
@@ -249,7 +242,7 @@ flowchart TD
 ## Minimize Token Blast Radius: Restrict Scopes to App Requirement
 
 - Result: Stops attacker from using token on other endpoints
-- Only requests Scopes the app Needs
+- Client only requests Scopes the app needs
 
 ---
 
@@ -300,15 +293,22 @@ Authorization servers SHOULD enforce client authentication if it is feasible
 # Attacker Gets Access Token Mitigation: 
 ## Protect Refresh Token
 
-- Rotate on each use
 - Refresh Tokens == High Value
+
+---
+
+# Attacker Gets Access Token Mitigation: 
+## Protect Refresh Token: Rotate on each use
+
+- When token used once, not usable anymore
 
 ---
 
 # Attacker Gets Access Token Mitigation: 
 ## Protect Refresh Token: Server-Side Sessions
 
-- Lets You Revoke tokens if needed
+- Revoke tokens when needed
+  - Internally by admins or externally by individual users
 
 ---
 
@@ -336,10 +336,11 @@ architecture-beta
 # Attacker Can See Requests Mitigation: 
 ## Don't Let Attacker Replay Requests
 
-- Cross Site Request Forgery (CSRF)
-- Nonce
-- PKCE
+- Purpose: Ensure same Client and IdP instances talk to each other the whole time
 - Use All 3
+  - Cross Site Request Forgery (CSRF)
+  - Nonce
+  - PKCE
 
 ---
 
@@ -349,7 +350,7 @@ architecture-beta
 ```text
 Clients MUST prevent Cross-Site Request Forgery (CSRF)...requests to the redirection endpoint that do not originate at the authorization server, but at a malicious third party...
 ```
-- Result: Stops request replay attacks, CSRF changes on each page load
+- Purpose: Stops request replay attacks, CSRF changes on each page load
   - Simple and effective
 - Malicious Site with hidden link is
   - Ex: https://important-site.com/callback?code=ATTACKER_CONTROLLED_CODE
@@ -363,7 +364,7 @@ Clients MUST prevent Cross-Site Request Forgery (CSRF)...requests to the redirec
 # Attacker Can See Requests Mitigation: 
 ## Don't Let Attacker Replay Requests: Nonce
 
-- Result: Client Security, Ensures Client Requests With Same Auth Server
+- Purpose: Client Security, Ensures Client Requests With Same Auth Server
 - Number Used Once
 - Client generates random string `nonce`
   - Included in initial auth request
