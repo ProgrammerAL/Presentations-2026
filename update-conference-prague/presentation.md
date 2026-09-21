@@ -234,6 +234,28 @@ flowchart TD
 
 ---
 
+# How do you establish trust among software?
+
+![bg right 100%](presentation-images/how-trust-among-services.svg)
+
+<!-- 
+```mermaid
+architecture-beta
+    service client(server)[Web Client]
+    service idp(cloud)[IdP]
+    service api1(server)[API]
+    
+    client:T -- L:idp
+    client:R -- L:api1
+    api1:R -- R:idp
+
+    align row client api1
+    align column idp api1
+```
+-->
+
+---
+
 # Reminder: Security has Layers
 
 - Nothing is 100% Perfect
