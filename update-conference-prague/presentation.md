@@ -27,9 +27,8 @@ with AL Rodriguez
 
 # Duende Software
 
-- Full Disclosure: They pay me (but I like them anyway)
+- Full Disclosure: They pay me
   - Customer Success Engineer
-- Demos use Duende IdentityServer
 
 ![bg right 80%](presentation-images/presentation_link_qrcode.png)
 
@@ -69,9 +68,9 @@ with AL Rodriguez
 
 - Users sign in to your Web App
   - Nothing Else
-- No Backend API
+- Backend "API"
   - Requests directly through Web App
-  - ie Server Side Rendering
+  - Maybe Server Side Rendering
 - Users stored in your own database
 ![bg right 80%](presentation-images/simple-app-diagram.svg)
 
@@ -181,6 +180,30 @@ flowchart TD
 
 ---
 
+# Example JWT Access Token
+
+```json
+//Header
+{
+  "alg": "RS256",
+  "kid": "D657784EB10243008DBE5224EC87A57F", 
+  "x5t": "h1G6E4kbIx--_cPHtzXanTOfjVg",
+  "typ": "at+jwt" // Token type: Access Token
+}
+//Payload
+{
+  "iss": "https://demo.duendesoftware.com",
+  "iat": 1789514847,
+  "exp": 1789518447,
+  "scope": [ "my-api:read", "user-self:read", "user-self:write" ],
+  ...
+}
+//Signature
+`D7MUrmkuHjni9Z6w......`
+```
+
+---
+
 # Generalized API Token Validation Flow
 
 - API must validate token
@@ -202,35 +225,10 @@ flowchart TD
 
 ---
 
-# Example JWT Access Token
-
-```json
-//Header
-{
-  "alg": "RS256",
-  "kid": "D657784EB10243008DBE5224EC87A57F", 
-  "x5t": "h1G6E4kbIx--_cPHtzXanTOfjVg",
-  "typ": "at+jwt" // Token type: Access Token
-}
-//Payload
-{
-  "iss": "https://demo.duendesoftware.com",
-  "iat": 1789514847,
-  "exp": 1789518447,
-  "scope": [ "api" ],
-  ...
-}
-//Signature
-`D7MUrmkuHjni9Z6w......`
-```
-
----
-
 # Where do these Best Practices come from?
 
 - A Standards Body
 - RFC 9700 - https://www.rfc-editor.org/info/rfc9700
-  - Some things for App Dev, some for IdP
 
 ---
 
@@ -317,11 +315,9 @@ architecture-beta
 
 ---
 
-# Attacker Gets Access Token Mitigation: 
-## Minimize Token Blast Radius: Restrict Audience Claim to App
-### Before and After
+# Before
 
-![bg left 100%](presentation-images/same-token-on-all-apis.svg)
+![bg 75%](presentation-images/same-token-on-all-apis.svg)
 
 <!-- architecture-beta
     service client(server)[Web Client]
@@ -337,7 +333,11 @@ architecture-beta
 
     align row api1 api2 api3 -->
 
-![bg right 100%](presentation-images/new-token-per-api.svg)
+---
+
+# After
+
+![bg 75%](presentation-images/new-token-per-api.svg)
 
 <!-- 
 architecture-beta
@@ -437,7 +437,7 @@ sequenceDiagram
 # Attacker Gets Access Token Mitigation: 
 ## Verify the Client: Demonstrating Proof of Possession (DPoP)
 
-- Purpose: API knows token always comes from same client, isn't leaked to someone else
+- Purpose: API knows token always comes from same client
   - Note: In addition to Signed JWT/mTLS
 - https://duendesoftware.com/blog/20251216-security-lingo-explained-dpop
 
