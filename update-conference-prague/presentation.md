@@ -109,7 +109,6 @@ architecture-beta
 ![bg right 80%](presentation-images/todays-standard-app-diagram.svg)
 
 <!-- 
-```mermaid
 architecture-beta
     service client(server)[Web Client]
     service admin(server)[Admin Client]
@@ -129,7 +128,6 @@ architecture-beta
     admin:L -- R:api3
 
     align column idp api1 api2 api3
-```
 -->
 
 ---
@@ -137,7 +135,7 @@ architecture-beta
 # You Need OAuth!
 
 - Open Standard for Access Delegation
-- IdentityProvider Service manages User Authentication
+- IdentityProvider (IdP) Service manages User Authentication
 - User Data lives in dedicated service
 - User needs to sign in to 1+ clients (Single Sign-On)
 - Complex 
@@ -437,18 +435,18 @@ sequenceDiagram
 ## Verify the Client: Demonstrating Proof of Possession (DPoP)
 
 - Purpose: API knows token always comes from same client
-  - Note: In addition to Signed JWT/mTLS
+- Bind Access Token to Client
 - https://duendesoftware.com/blog/20251216-security-lingo-explained-dpop
 
 ![bg right 100%](presentation-images/dpop-flow.svg)
 
 <!-- 
 sequenceDiagram
-    Note over Client: Generates DPoP Proof
-    Client ->>+IdP: Requests Token - Includes DPoP Proof
+    Note over Client: Generates DPoP Proof using Private Key
+    Client ->>+IdP: Requests Token - Includes DPoP Proof w/Public Key
     IdP->>+Client:Returns Access Token Bound to DPoP Proof
     Client ->>+API: Makes Request
-    API->>+IdP: Validate DPoP Proof
+    API->>+IdP: Validate DPoP Proof using Public Key
     Note over API: Process Request 
 -->
 
@@ -565,25 +563,6 @@ sequenceDiagram
 -->
 ---
 
-# Even Better Practice: 
-## Don't Send Tokens to Uncontrolled Endpoints
-
-- ie, Only send tokens to YOUR endpoints
-
-![bg right 100%](presentation-images/only-use-your-endpoints.svg)
-
-<!-- 
-architecture-beta
-    service idp(cloud)[IdP]
-    service client(server)[Web Client]
-    service api(server)[API]
-    
-    client:R -- L:api
-    api:R -- L:idp 
--->
-
----
-
 # Attack Scenario 3: Client Used Malicious Input Values
 
 - Bad Redirect
@@ -613,7 +592,7 @@ architecture-beta
 ---
 
 # Client Used Malicious Input Values Mitigation: Ensure Client Communicates with You: 
-## CSP aka Client Security Policy
+## CSP aka Content Security Policy
 
 - CSP: Website can only talk to known endpoints
 - For Clickjacking Attack
@@ -633,11 +612,33 @@ architecture-beta
 ---
 
 # Extra Credit: RFC 10017 aka BCP 212
-## Backend For Frontend Pattern
+## Backend For Frontend Pattern (BFF)
 
 - Don't store tokens in client
 - Proxy requests through a single backend to other backends
 - https://duendesoftware.com/blog/the-backend-for-frontend-pattern-is-now-official-ietf-guidance-rfc-10017-published
+
+![bg right 80%](presentation-images/bff-diagram.svg)
+
+<!-- 
+architecture-beta
+    service client(server)[Web Client]
+    service api1(server)[API 1]
+    service api2(server)[API 2]
+    service api3(server)[API 3]
+    service idp(cloud)[IdP]
+    service webClientBff(server)[Web Client BFF]
+    
+    client:R -- L:webClientBff
+
+    webClientBff:R -- L:idp
+    webClientBff:R -- L:api1
+    webClientBff:R -- L:api2
+    webClientBff:R -- L:api3
+
+    align column idp api1 api2 api3
+    align row client webClientBff 
+-->
 
 ---
 
