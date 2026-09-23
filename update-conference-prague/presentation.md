@@ -413,7 +413,6 @@ sequenceDiagram
     IdP->>+API Client: 
 -->
 
-
 ---
 
 # Attacker Gets Access Token Mitigation: 
@@ -481,11 +480,12 @@ sequenceDiagram
 <!-- # Best Practice: Protect at Request Level -->
 
 - Attacker in the Middle
-- Interactive flow of user signing-in
 - Malicious Actor Intercepts the Token
 - Forces Browser to Make Silent Request to Website
 
-```mermaid
+![bg right 100%](presentation-images/attacker-can-see-requests.svg)
+
+<!-- 
 architecture-beta
     service idp(cloud)[IdP]
     service client(server)[Web Client]
@@ -494,63 +494,75 @@ architecture-beta
     
     client:R -- L:bad
     bad:R -- L:idp
-```
+-->
 
 ---
 
 # Attacker Can See Requests Mitigation: 
-## Don't Let Attacker Replay Requests
+## Use State Parameters
 
-- Purpose: Ensure same Client and IdP instances talk to each other the whole time
-- Use All 3
-  - Cross Site Request Forgery (CSRF)
-  - Nonce
-  - PKCE
+- Cross Site Request Forgery (CSRF)
+- Nonce
+- PKCE
 
 ---
 
 # Attacker Can See Requests Mitigation: 
-## Don't Let Attacker Replay Requests: CSRF
+## Use State Parameters: CSRF
 
 ```text
 Clients MUST prevent Cross-Site Request Forgery (CSRF)...requests to the redirection endpoint that do not originate at the authorization server, but at a malicious third party...
 ```
 - Purpose: Stops request replay attacks, CSRF changes on each page load
-  - Simple and effective
-- Malicious Site with hidden link is
-  - Ex: https://important-site.com/callback?code=ATTACKER_CONTROLLED_CODE
 - Random string to gate future request
   - Request blocked if string is wrong
+- Malicious Site with hidden link
+  - Ex: https://important-site.com/callback?code=ATTACKER_CONTROLLED_CODE
 
 <!-- TODO: Diagram -->
 
 ---
 
 # Attacker Can See Requests Mitigation: 
-## Don't Let Attacker Replay Requests: Nonce
+## Use State Parameters: Nonce
 
-- Purpose: Client Security, Ensures Client Requests With Same Auth Server
+- Purpose: Client Security, Ensures ID Token Was for this Login Attempt
 - Number Used Once
-- Client generates random string `nonce`
-  - Included in initial auth request
-- Final Token includes `nonce`
-- Client validates the Token `nonce` matches value in original request
+- Client generates random string `nonce`, verifies final token includes same value
 
-<!-- TODO: Diagram or JWT -->
+![bg right 100%](presentation-images/nonce-flow.svg)
+
+<!-- 
+sequenceDiagram
+    Note over Client: Generate Nonce, store locally
+    Client->>+IdP:Authenticate, include Nonce
+    IdP-\->>+Client: Redirect
+    Client-\->>+IdP: Login
+    IdP->>+Client: Return Token including Nonce
+    Note over Client: Verify Nonce Matches 
+-->
 
 ---
 
 # Attacker Can See Requests Mitigation: 
-## Don't Let Attacker Replay Requests: PKCE
+## Use State Parameters: PKCE
 
-- Purpose: Ensure same client used for all Auth requests
-- Client generates random string `code_verifier`
-  - Included in requests to Auth Server
-- Auth Server doesn't return `code_verifier`
-  - `code_verifier` can't be intercepted by response
+- Purpose: Ensures client that started the request, same that requests access token
+- Client generates random string `code_verifier` and `code_challenge`
+- Auth Server doesn't return anything, can't be intercepted
 
-<!-- TODO: Diagram -->
+![bg right 100%](presentation-images/pkce-flow.svg)
 
+<!-- 
+sequenceDiagram
+    Note over Client: Generate code_verifier and code_challenge
+    Client->>+IdP:Authenticate, include code_challenge
+    Note over IdP: Store code_challenge locally
+    IdP->>+Client: Return Authorization Code
+    Client->>+IdP:Request Access Token, include code_verifier
+    Note over IdP: Verify code_challenge matches code_verifier after hashing/encoding it
+    IdP->>+Client: Return Access Token
+-->
 ---
 
 # Even Better Practice: 
@@ -558,15 +570,17 @@ Clients MUST prevent Cross-Site Request Forgery (CSRF)...requests to the redirec
 
 - ie, Only send tokens to YOUR endpoints
 
-```mermaid
+![bg right 100%](presentation-images/only-use-your-endpoints.svg)
+
+<!-- 
 architecture-beta
     service idp(cloud)[IdP]
     service client(server)[Web Client]
     service api(server)[API]
     
     client:R -- L:api
-    api:R -- L:idp
-```
+    api:R -- L:idp 
+-->
 
 ---
 
@@ -629,9 +643,7 @@ architecture-beta
 
 # Anything about A.I.?
 
-- No spec yet, in progress
 - General Practice: 
-  - Nothing Changes Much
   - Follow OAuth best practices
 
 ---
