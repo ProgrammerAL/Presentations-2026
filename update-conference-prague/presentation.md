@@ -291,7 +291,7 @@ architecture-beta
 ---
 
 # Attacker Gets Access Token Mitigation: 
-## Minimize Token Blast Radius: Restrict Audience Claim to App
+## Minimize Token Blast Radius: Restrict Audience Claim to API
 
 - Purpose: Stop attacker from using token on other APIs
 - Set the Token `aud` claim
