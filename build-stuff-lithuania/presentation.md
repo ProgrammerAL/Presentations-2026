@@ -59,9 +59,9 @@ with AL Rodriguez
 
 ---
 
-# What if I made my own static site generator?
+# (2018) What if I made my own static site generator?
 
-* And made it crazy?!
+- And made it crazy?!
 
 ---
 
@@ -78,49 +78,104 @@ with AL Rodriguez
 # There were problems
 
 - How do you update the HTML?
-- 
-- 
-- Idea Abandoned: 2017
+- How do you update styles?
+- What does/doesn't get cached?
+- Idea Abandoned: 2018
 
 ---
 
-# Website Backend
+# 2025 - I want to make jokes
+
+- Jokes...on the internet
+- 8 year old idea
+  - Bad then, great now
 
 ---
 
-# Website Frontend
+# Admin Functionality
 
-- Static site
-- Main Pages Static Code
-- Dynamic Pages are generated when published or updated
-  - Articles, Index, and Category pages
+- Accidental CMS
+
+---
+
+# Website
+
+- Frontend
+  - Static site
+  - Main Pages Static Code
+  - Dynamic Pages are generated when published or updated
+    - Articles, Index, and Category pages
+
+- Backend
+  - Server-side functionality to retrieve data
+
+---
+
+# Goals
+
+- Fast Site
+- Do everything "right"
+  - Security Headers, Static HTML, Minified and Cached Content
+- Lighthouse Score 100
+  - Not 99!
 
 ---
 
 # What it Lighthouse?
 
+- Audits Website Metrics
+  - Emphasis: User Experience
+  - Fast server response, security headers, valid HTML, etc
+- Developed by Google
 
-
----
-
-TODO: Lighthouse Scores An Astro Site
-
----
-
-TODO: Lighthouse Scores Bluesky
+![bg right 80%](presentation-images/lighthouse-image.png)
 
 ---
 
-TODO: Lighthouse Scores Something Else
+# Social Media Scores
+
+- September 24, 2026 on Brave Desktop
+
+|           | Performance | Accessibility | Best Practices | SEO |
+|-----------|-------------|---------------|----------------|-----|
+| Bluesky   | 66          | 80            | 96             | 92  |
+| Instagram | 64          | 83            | 81             | 92  |
+| Twitter   | 63          | 66            | 77             | 92  |
+| LinkedIn  | 69          | 90            | 92             | 83  |
 
 ---
 
+# Misc Astro Sites
 
-# Short Answer
+- September 24, 2026 on Chrome Desktop
 
-- Do Less Work
-- "When" matters
+|                           | Performance | Accessibility | Best Practices | SEO |
+|---------------------------|-------------|---------------|----------------|-----|
+| designcember.web.app      | 99          | 88            | 96             | 100 |
+| ikea.com                  | 98          | 96            | 100            | 100 |
+| developers.cloudflare.com | 99          | 89            | 96             | 92  |
+| docs.duendesoftware.com   | 98          | 100           | 77             | 92  |
+| freshjuice.dev            | 100         | 100           | 100            | 100 |
 
+---
+
+# Reaching Maximum Lighthouse
+
+- Optimize the UI
+- Use Valid HTML
+- Add Security Headers
+
+---
+
+# Optimize the UI - Caching
+
+- Caching
+
+---
+---
+---
+---
+---
 ---
 
 # Review
