@@ -44,6 +44,12 @@ with AL Rodriguez
 
 ---
 
+# Content Warning
+
+- Bad Ideas Ahead
+
+---
+
 # globalGlob(*\*/\*)
 
 - Satire
@@ -161,9 +167,64 @@ with AL Rodriguez
 
 # Reaching Maximum Lighthouse
 
-- Optimize the UI
-- Use Valid HTML
-- Add Security Headers
+- Make it Fast
+  - Static HTML
+- Make it Right
+  - Use Valid HTML
+  - Add Security Headers
+
+---
+
+# Static Site
+
+- Harder than you think
+- Mix Static with Dynamic
+- 
+
+---
+
+# Static Site - The globalGlob.dev Way
+
+- Some Static Pages
+  - /about, /disclaimer, /staff
+- Some `Lit` modules
+  - Some loose TypeScript
+- Some pages generated at runtime, placed in cloud storage
+  - /index, /articles, every "paging" page
+
+---
+
+# Static Site - The globalGlob.dev Way - Static Pages
+
+- Hand written
+- Minimal '`Lit`' modules
+  - Header and Footer
+- CSS file per page
+  - Reduces accidental bloat
+
+
+---
+---
+---
+---
+
+# Limited Dynamic Content - The globalGlob.dev Way
+
+- Site Header is *sometimes* dynamic
+  - Index and other static pages
+  - Reset each time a generated page is re-generated
+- Re-generate page when needed, or want to
+
+---
+
+# Limited Dynamic Content - The globalGlob.dev Way
+
+
+---
+
+# Limited Dynamic Content
+
+- Repaints Lower Performance Score
 
 ---
 
@@ -172,9 +233,106 @@ with AL Rodriguez
 - Caching
 
 ---
+
+# Cache Responses
+
+- 
+
+---
+
+# Cache Responses - The globalGlob.dev Way
+
+- Use '`etag`' heavily
+- Remove query string
+
+---
+
+# Cache Responses - The globalGlob.dev Way - ETag
+
+- Arbitrary string for
+  - Cache Id
+  - globalGlob uses timestamp content is generated
+
+---
+
+# globalGlob.dev Page Cache Strategy
+
+![bg right 90%](presentation-images/cache-architecture.svg)
+
+<!-- 
+architecture-beta
+    service site(server)[Site]
+    service siteApi(server)[Site API]
+    service storageApi(server)[Storage API]
+    service publisherApi(server)[Publisher API]
+    service r2(disk)[Cloudflare R2]
+    service kv(disk)[Cloudflare KV]
+
+    site:R -- L:siteApi
+    siteApi:T -- B:r2
+    r2:R -- L:storageApi
+    siteApi:T -- B:kv
+    siteApi:R -- L:publisherApi
+    publisherApi:T -- B:storageApi
+
+    align row kv r2 storageApi
+    align row site siteApi publisherApi
+-->
+---
+
+# globalGlob.dev Page Cache Strategy
+
+![bg right 50%](presentation-images/cache-flow.svg)
+
+<!-- 
+flowchart TD
+    A[Request] -\->|Get money| B(Load Version Number from Storage)
+    B -\-> C{Version == ETag?}
+    C -\->|Yes| D
+    C -\->|No| E[Re-Generate Page - Store with Version]
+    E -\->D[Return HTML] 
+-->
+
+---
+
+# Cache Responses - The globalGlob.dev Way - Query String
+
+- Remove Query String
+  - '`?a=123&b=456`' vs '`?b=456&a=123`'
+  - https://calendar.perfplanet.com/2025/fixing-the-url-params-performance-penalty
+- Anyone can add query string
+  - https://community.cloudflare.com/t/facebook-now-adds-fbclid-query-string-to-urls-busting-cloudflares-cache/40355
+- Cloudflare setting to force it off
+
 ---
 ---
 ---
+---
+---
+
+# CSS
+
+---
+---
+
+# Images
+
+- Smaller files are better
+  - Prioritize SVG
+  - Otherwise, whatever's smaller
+  - Use '`sizes`' property
+- Lazy Load
+
+---
+---
+---
+---
+---
+
+# Misc Lighthouse Rules
+
+- Standards Compliant '`robots.txt`' file
+
 ---
 ---
 

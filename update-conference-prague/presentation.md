@@ -135,7 +135,7 @@ architecture-beta
 # You Need OAuth!
 
 - Open Standard for Access Delegation
-- IdentityProvider (IdP) Service manages User Authentication
+- Identity Provider (IdP) Service manages User Authentication
 - User Data lives in dedicated service
 - User needs to sign in to 1+ clients (Single Sign-On)
 - Complex 
@@ -148,7 +148,7 @@ architecture-beta
 # Generalized OAuth Flow the User Sees
 
 - 4 Steps involving redirects
-  - User stored in IdentityProvider (IdP)
+  - User stored in Identity Provider (IdP)
   - IdentityServer, Auth0, Entra, etc
 - User goes through OAuth Flow to sign in and receive token
 
@@ -435,7 +435,7 @@ sequenceDiagram
 ## Verify the Client: Demonstrating Proof of Possession (DPoP)
 
 - Purpose: API knows token always comes from same client
-- Bind Access Token to Client
+- Bind Access Token to Public Client
 - https://duendesoftware.com/blog/20251216-security-lingo-explained-dpop
 
 ![bg right 100%](presentation-images/dpop-flow.svg)
