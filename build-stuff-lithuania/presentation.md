@@ -52,7 +52,8 @@ with AL Rodriguez
 
 # globalGlob(*\*/\*)
 
-- Satire
+- https://globalGlob.dev
+- Secret: Satire
 - Articles/Videos/Newsletter
 - Deployed December 2025
 
@@ -138,6 +139,14 @@ with AL Rodriguez
 
 ---
 
+# Reaching 100 Lighthouse
+
+- 
+- https://jsonld.com/perfect-lighthouse-100-scores
+
+
+---
+
 # Social Media Scores
 
 - September 24, 2026 on Brave Desktop
@@ -179,7 +188,6 @@ with AL Rodriguez
 
 - Harder than you think
 - Mix Static with Dynamic
-- 
 
 ---
 
@@ -202,10 +210,6 @@ with AL Rodriguez
 - CSS file per page
   - Reduces accidental bloat
 
-
----
----
----
 ---
 
 # Limited Dynamic Content - The globalGlob.dev Way
@@ -236,7 +240,16 @@ with AL Rodriguez
 
 # Cache Responses
 
-- 
+- Cache in client browser
+- Cache in CDN
+
+---
+
+# Cache Responses - The globalGlob.dev Way
+
+1. Cache in client browser
+1. Cache in CDN
+1. Cache in Persistent Store
 
 ---
 
@@ -288,9 +301,11 @@ architecture-beta
 flowchart TD
     A[Request] -\->|Get money| B(Load Version Number from Storage)
     B -\-> C{Version == ETag?}
-    C -\->|Yes| D
-    C -\->|No| E[Re-Generate Page - Store with Version]
-    E -\->D[Return HTML] 
+    C -\->|Yes| D(Return 304 Not Modified)
+    C -\->|No| E{Version Exists?}
+    E -\->|No|F[Re-Generate Page - Store with Version]
+    E -\->|Yes|G[Return HTML]
+    F -\-> G
 -->
 
 ---
@@ -305,41 +320,98 @@ flowchart TD
 - Cloudflare setting to force it off
 
 ---
----
----
----
+
+# Compress Content
+
+- Choose compression Algorithm
+  - Brotli and Zstd
+- From testing:
+  - Brotli compresses smaller
+  - Zstd compresses/decompresses faster, size pretty close to Brotli
+
 ---
 
-# CSS
+# Compress Content - The globalGlob.dev Way
+
+- Rely on Cloudflare to compress content per request
+  - Text Only
+  - HTML/CSS/JS/SVG
+- Cloudflare doesn't compress images in realtime
+  - Add code to pre-compress images - zstd
 
 ---
+
+# Javascript Frameworks
+
+- From https://cdnjs.com on September 30, 2026
+
+| Framework                 | Raw Size | Brotli Compressed |
+|---------------------------|----------|------------|
+| React - 19.2.8 (minified) | 9.6 kB   | 3.5 kB     |
+| Vue - 3.5.43              | 600.9 kB | 109 kB     |
+| Ember - 6.12.0            |  2 MB    | 322 kB     |
+| Preact - 10.29.6          |  11 kB   | 5.1 kB     |
+
+---
+
+# Javascript Frameworks - The globalGlob.dev Way
+
+- JS per page
+- Prefer pre-generated content over JS updates
+
+---
+
+# Static Content - The globalGlob.dev Way
+
+- Make it small
+- Make it load fast
+
+---
+
+# Static Content - The globalGlob.dev Way
+
+1. Minify CSS
+1. Minify JS
+1. Generate HTML from template
+1. Insert other inline HTML - if needed
+1. Inline CSS/JS into HTML
+1. Minify this
+1. Reminder: This also gets compressed in response
+
 ---
 
 # Images
 
 - Smaller files are better
-  - Prioritize SVG
+  - Content: Prioritize SVG
   - Otherwise, whatever's smaller
-  - Use '`sizes`' property
+  - Use '`sizes`' property for "responsive" images
+    - https://piccalil.li/blog/the-end-of-responsive-images
 - Lazy Load
+  - https://web.dev/articles/browser-level-image-lazy-loading
 
 ---
----
----
----
+
+# Images - The globalGlob.dev Way
+
+- Pre-compress with zstd
+- Generate multiple images for size range (small, medium, large)
+  - For non-SVG
+
 ---
 
 # Misc Lighthouse Rules
 
+- Clean Site
+  - No console errors, HTTPS for all scripts, no blocked scripts (trackers/analytics)
 - Standards Compliant '`robots.txt`' file
 
----
 ---
 
 # Review
 
-- 
-- 
+- Pre-generate content
+- Responsive Images
 - 
 
 ![bg right 80%](presentation-images/presentation_link_qrcode.png)
