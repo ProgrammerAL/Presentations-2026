@@ -642,6 +642,13 @@ architecture-beta
 
 ---
 
+# Extra Credit: RFC 8725 aka BCP 225
+## JWT Best Current Practices
+
+- https://www.rfc-editor.org/info/rfc8725
+
+---
+
 # Anything about A.I.?
 
 - General Practice: 

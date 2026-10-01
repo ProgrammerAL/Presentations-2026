@@ -59,13 +59,6 @@ with AL Rodriguez
 
 ---
 
-# Typical Static Site Generator
-
-- Build Time
-- Astro/Hugo/Jekyll/11ty
-
----
-
 # (2018) What if I made my own static site generator?
 
 - And made it crazy?!
@@ -91,30 +84,25 @@ with AL Rodriguez
 
 ---
 
+# (Today) Typical Static Site Generator
+
+- Build Time
+- Astro/Hugo/Jekyll/11ty
+
+---
+
+# (Today) Typical CMS
+
+- Live Edits
+- TinyCMS/Pico/WonderCMS/StaticCMS
+
+---
+
 # 2025 - I want to make jokes
 
 - Jokes...on the internet
 - 8 year old idea
   - Bad then, great now
-
----
-
-# Admin Functionality
-
-- Accidental CMS
-
----
-
-# Website
-
-- Frontend
-  - Static site
-  - Main Pages Static Code
-  - Dynamic Pages are generated when published or updated
-    - Articles, Index, and Category pages
-
-- Backend
-  - Server-side functionality to retrieve data
 
 ---
 
@@ -139,30 +127,24 @@ with AL Rodriguez
 
 ---
 
-# Reaching 100 Lighthouse
-
-- 
-- https://jsonld.com/perfect-lighthouse-100-scores
-
-
----
-
 # Social Media Scores
 
-- September 24, 2026 on Brave Desktop
+- October 1, 2026 on Chrome Desktop
 
 |           | Performance | Accessibility | Best Practices | SEO |
 |-----------|-------------|---------------|----------------|-----|
-| Bluesky   | 66          | 80            | 96             | 92  |
-| Instagram | 64          | 83            | 81             | 92  |
-| Twitter   | 63          | 66            | 77             | 92  |
-| LinkedIn  | 69          | 90            | 92             | 83  |
+| Bluesky   | 72          | 80            | 92             | 92  |
+| Instagram | 67          | 79            | 58             | 92  |
+| Twitter   | 69          | 63            | 77             | 92  |
+| LinkedIn  | 65          | 90            | 73             | 83  |
+
+
 
 ---
 
 # Misc Astro Sites
 
-- September 24, 2026 on Chrome Desktop
+- October 1, 2026 on Chrome Desktop
 
 |                           | Performance | Accessibility | Best Practices | SEO |
 |---------------------------|-------------|---------------|----------------|-----|
@@ -170,7 +152,6 @@ with AL Rodriguez
 | ikea.com                  | 98          | 96            | 100            | 100 |
 | developers.cloudflare.com | 99          | 89            | 96             | 92  |
 | docs.duendesoftware.com   | 98          | 100           | 77             | 92  |
-| freshjuice.dev            | 100         | 100           | 100            | 100 |
 
 ---
 
@@ -181,11 +162,40 @@ with AL Rodriguez
 - Make it Right
   - Use Valid HTML
   - Add Security Headers
+- https://jsonld.com/perfect-lighthouse-100-scores
+
+---
+
+# globalGlob(*\*/\*) Website
+
+- Frontend
+  - Static site
+  - Main Pages Static Code
+    - /about, /staff, /disclaimer
+  - Dynamic Pages are generated when published or updated
+    - Articles, Index, and Category pages
+
+- Backend
+  - Server-side functionality to retrieve data
+
+---
+
+# Admin Functionality
+
+- Accidental CMS
+- Add/Remove content
+- Re-generate static content
+- Publisher Frontend
+  - Blazor WASM
+  - Don't care about lighthouse
+- Publisher Backend
+  - ASP.NET Core/Azure CosmosDB
 
 ---
 
 # Static Site
 
+- ???
 - Harder than you think
 - Mix Static with Dynamic
 
@@ -212,7 +222,33 @@ with AL Rodriguez
 
 ---
 
-# Limited Dynamic Content - The globalGlob.dev Way
+# globalGlob.dev Dynamic Page Content Strategy
+
+![bg right 90%](presentation-images/cache-architecture.svg)
+
+<!-- 
+architecture-beta
+    service site(server)[Site]
+    service siteApi(server)[Site API]
+    service storageApi(server)[Storage API]
+    service publisherApi(server)[Publisher API]
+    service r2(disk)[Cloudflare R2]
+    service kv(disk)[Cloudflare KV]
+
+    site:R -- L:siteApi
+    siteApi:T -- B:r2
+    r2:R -- L:storageApi
+    siteApi:T -- B:kv
+    siteApi:R -- L:publisherApi
+    publisherApi:T -- B:storageApi
+
+    align row kv r2 storageApi
+    align row site siteApi publisherApi
+-->
+
+---
+
+# Dynamic Content - The globalGlob.dev Way
 
 - Site Header is *sometimes* dynamic
   - Index and other static pages
@@ -221,27 +257,25 @@ with AL Rodriguez
 
 ---
 
-# Limited Dynamic Content - The globalGlob.dev Way
-
-
----
-
-# Limited Dynamic Content
+# Limit Dynamic Content
 
 - Repaints Lower Performance Score
+- Header repaint was costly
 
 ---
 
 # Optimize the UI - Caching
 
-- Caching
+- Cache Somewhere
+- O(1) Lookup
 
 ---
 
-# Cache Responses
+# What to cache?
 
-- Cache in client browser
-- Cache in CDN
+- Cache responses in Client Browser
+- Cache responses in CDN
+- Cache HTML in Cloud Storage
 
 ---
 
@@ -266,31 +300,6 @@ with AL Rodriguez
   - Cache Id
   - globalGlob uses timestamp content is generated
 
----
-
-# globalGlob.dev Page Cache Strategy
-
-![bg right 90%](presentation-images/cache-architecture.svg)
-
-<!-- 
-architecture-beta
-    service site(server)[Site]
-    service siteApi(server)[Site API]
-    service storageApi(server)[Storage API]
-    service publisherApi(server)[Publisher API]
-    service r2(disk)[Cloudflare R2]
-    service kv(disk)[Cloudflare KV]
-
-    site:R -- L:siteApi
-    siteApi:T -- B:r2
-    r2:R -- L:storageApi
-    siteApi:T -- B:kv
-    siteApi:R -- L:publisherApi
-    publisherApi:T -- B:storageApi
-
-    align row kv r2 storageApi
-    align row site siteApi publisherApi
--->
 ---
 
 # globalGlob.dev Page Cache Strategy
@@ -397,6 +406,13 @@ flowchart TD
 - Pre-compress with zstd
 - Generate multiple images for size range (small, medium, large)
   - For non-SVG
+
+---
+
+# Fonts
+
+- Use fonts already installed on device
+- https://modernfontstacks.com
 
 ---
 
