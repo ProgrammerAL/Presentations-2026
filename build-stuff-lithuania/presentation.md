@@ -71,7 +71,7 @@ with AL Rodriguez
 - Users upload a post
 - Site generates the HTML, stores in cloud storage
 - All requests receive that HTML
-- Started work in 2017
+- Started work in 2018
 
 ---
 
@@ -108,7 +108,7 @@ with AL Rodriguez
 
 # Goals
 
-- Fast Site
+- Fast Site for the User
 - Do everything "right"
   - Security Headers, Static HTML, Minified and Cached Content
 - Lighthouse Score 100
@@ -195,8 +195,7 @@ with AL Rodriguez
 
 # Static Site
 
-- ???
-- Harder than you think
+- Pages Written at Dev Time
 - Mix Static with Dynamic
 
 ---
@@ -251,8 +250,7 @@ architecture-beta
 # Dynamic Content - The globalGlob.dev Way
 
 - Site Header is *sometimes* dynamic
-  - Index and other static pages
-  - Reset each time a generated page is re-generated
+  - Lit Component vs Handlebars at Runtime vs Static File Insertion
 - Re-generate page when needed, or want to
 
 ---
@@ -266,7 +264,7 @@ architecture-beta
 
 # Optimize the UI - Caching
 
-- Cache Somewhere
+- Cache Data...Somewhere
 - O(1) Lookup
 
 ---
@@ -281,6 +279,7 @@ architecture-beta
 
 # Cache Responses - The globalGlob.dev Way
 
+1. Cache in Server Responses
 1. Cache in client browser
 1. Cache in CDN
 1. Cache in Persistent Store
@@ -308,7 +307,7 @@ architecture-beta
 
 <!-- 
 flowchart TD
-    A[Request] -\->|Get money| B(Load Version Number from Storage)
+    A[Request] -\->|Load ETag| B(Load Version Number from Storage)
     B -\-> C{Version == ETag?}
     C -\->|Yes| D(Return 304 Not Modified)
     C -\->|No| E{Version Exists?}
@@ -326,7 +325,7 @@ flowchart TD
   - https://calendar.perfplanet.com/2025/fixing-the-url-params-performance-penalty
 - Anyone can add query string
   - https://community.cloudflare.com/t/facebook-now-adds-fbclid-query-string-to-urls-busting-cloudflares-cache/40355
-- Cloudflare setting to force it off
+- Use Cloudflare setting to ignore Query String for CDN Cache
 
 ---
 
@@ -381,9 +380,9 @@ flowchart TD
 
 1. Minify CSS
 1. Minify JS
+1. Inline CSS/JS into HTML
 1. Generate HTML from template
 1. Insert other inline HTML - if needed
-1. Inline CSS/JS into HTML
 1. Minify this
 1. Reminder: This also gets compressed in response
 
@@ -409,7 +408,7 @@ flowchart TD
 
 ---
 
-# Fonts
+# Fonts - The globalGlob.dev Way
 
 - Use fonts already installed on device
 - https://modernfontstacks.com
@@ -426,8 +425,8 @@ flowchart TD
 
 # Review
 
-- Pre-generate content
+- Pre-generate Content
 - Responsive Images
-- 
+- Minimize What's Downloaded
 
 ![bg right 80%](presentation-images/presentation_link_qrcode.png)
