@@ -384,10 +384,11 @@ architecture-beta
 ## Verify the Client: Confidential Clients
 
 ```text
-Authorization servers SHOULD enforce client authentication if it is feasible
+Authorization servers SHOULD enforce client authentication if it is feasible...to establish a process for issuance/registration of credentials for clients and ensuring the confidentiality of those credentials
 ```
 - Purpose: Don't Let Anyone Make Custom Clients (custom script)
-- Client proves to Auth Server it is who it says it is
+- API Client proves to Auth Server it is who it says it is
+- Tokens are harder to abuse if you have to authenticate to use them
 - Enabled with mTLS or Signed Tokens
   - No client secret string
 - https://duendesoftware.com/blog/20260903-client-secrets-mutual-tls-and-private-key-jwt
@@ -462,7 +463,11 @@ sequenceDiagram
 # Attacker Gets Access Token Mitigation: 
 ## Protect Refresh Token: Rotate on each use
 
-- When token used once, not usable anymore
+- After token used, not usable anymore
+- For public clients MUST use:
+  - Sender constrained refresh tokens
+  - Or refresh token rotation
+    - Note: Confidential clients can only use refresh tokens for that client
 
 ---
 
