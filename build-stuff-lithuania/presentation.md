@@ -55,7 +55,7 @@ with AL Rodriguez
 - https://globalGlob.dev
 - Secret: Satire
 - Articles/Videos/Newsletter
-- Deployed December 2025
+- Deployed December 18, 2025
 
 ---
 
@@ -101,8 +101,8 @@ with AL Rodriguez
 # 2025 - I want to make jokes
 
 - Jokes...on the internet
-- 8 year old idea
-  - Bad then, great now
+- 7 year old idea
+  - Bad then...great now?
 
 ---
 
@@ -119,7 +119,7 @@ with AL Rodriguez
 # What it Lighthouse?
 
 - Audits Website Metrics
-  - Emphasis: User Experience
+- Emphasis: User Experience
   - Fast server response, security headers, valid HTML, etc
 - Developed by Google
 
@@ -127,7 +127,17 @@ with AL Rodriguez
 
 ---
 
-# Social Media Scores
+# Website - The Normal Way
+
+- SPA Framework is Developer Default
+- Bad for Lighthouse
+  - Initial HTML empty
+  - JS populates the page
+  - Network/Computation Expensive
+
+---
+
+# SPA Social Media - Lighthouse Scores
 
 - October 1, 2026 on Chrome Desktop
 
@@ -138,11 +148,9 @@ with AL Rodriguez
 | Twitter   | 69          | 63            | 77             | 92  |
 | LinkedIn  | 65          | 90            | 73             | 83  |
 
-
-
 ---
 
-# Misc Astro Sites
+# Static Astro Sites - Lighthouse Scores
 
 - October 1, 2026 on Chrome Desktop
 
@@ -155,7 +163,7 @@ with AL Rodriguez
 
 ---
 
-# Reaching Maximum Lighthouse
+# To Reach Maximum Lighthouse
 
 - Make it Fast
   - Static HTML
@@ -174,9 +182,11 @@ with AL Rodriguez
     - /about, /staff, /disclaimer
   - Dynamic Pages are generated when published or updated
     - Articles, Index, and Category pages
+  - Hosted by Cloudflare Pages
 
 - Backend
   - Server-side functionality to retrieve data
+  - Serverless Functions (Cloudflare Workers)
 
 ---
 
@@ -188,15 +198,18 @@ with AL Rodriguez
 - Publisher Frontend
   - Blazor WASM
   - Don't care about lighthouse
+  - Hosted in Cloudflare Pages
 - Publisher Backend
-  - ASP.NET Core/Azure CosmosDB
+  - ASP.NET Core on Azure Container Apps/Azure CosmosDB
 
 ---
 
-# Static Site
+# Static Site - The Normal Way
 
 - Pages Written at Dev Time
-- Mix Static with Dynamic
+- Mix Static with Dynamic Requests
+- Pre-rendered HTML
+  - Fast and SEO friendly
 
 ---
 
@@ -204,10 +217,11 @@ with AL Rodriguez
 
 - Some Static Pages
   - /about, /disclaimer, /staff
-- Some `Lit` modules
-  - Some loose TypeScript
 - Some pages generated at runtime, placed in cloud storage
   - /index, /articles, every "paging" page
+- Some Javascript
+  - Some `Lit` modules
+  - Some loose TypeScript
 
 ---
 
@@ -255,21 +269,21 @@ architecture-beta
 
 ---
 
-# Limit Dynamic Content
+# For Performance: Limit Dynamic Content
 
 - Repaints Lower Performance Score
-- Header repaint was costly
+- Surprise Finding: Header repaint was costly
 
 ---
 
-# Optimize the UI - Caching
+# Caching!
 
 - Cache Data...Somewhere
 - O(1) Lookup
 
 ---
 
-# What to cache?
+# What to cache? And where?
 
 - Cache responses in Client Browser
 - Cache responses in CDN
@@ -279,10 +293,10 @@ architecture-beta
 
 # Cache Responses - The globalGlob.dev Way
 
-1. Cache in Server Responses
-1. Cache in client browser
-1. Cache in CDN
-1. Cache in Persistent Store
+1. Cache in Server Responses (ETag)
+1. Cache in client browser (TTL Header)
+1. Cache in CDN (Cloudflare Default)
+1. Cache in Persistent Store (Cloud Storage)
 
 ---
 
@@ -297,7 +311,7 @@ architecture-beta
 
 - Arbitrary string for
   - Cache Id
-  - globalGlob uses timestamp content is generated
+  - globalGlob(*\*/\*) uses timestamp content is generated
 
 ---
 
@@ -329,10 +343,10 @@ flowchart TD
 
 ---
 
-# Compress Content
+# For Performance: Compress Content
 
 - Choose compression Algorithm
-  - Brotli and Zstd
+  - Brotli and Zstandard
 - From testing:
   - Brotli compresses smaller
   - Zstd compresses/decompresses faster, size pretty close to Brotli
@@ -351,7 +365,7 @@ flowchart TD
 
 # Javascript Frameworks
 
-- From https://cdnjs.com on September 30, 2026
+- From https://cdnjs.com or https://cdn.jsdelivr.net on September 30, 2026
 
 | Framework                 | Raw Size | Brotli Compressed |
 |---------------------------|----------|------------|
@@ -359,6 +373,7 @@ flowchart TD
 | Vue - 3.5.43              | 600.9 kB | 109 kB     |
 | Ember - 6.12.0            |  2 MB    | 322 kB     |
 | Preact - 10.29.6          |  11 kB   | 5.1 kB     |
+| Lit - 3.3.3 (minified)    | 15.37 KB | 6.9 kB     |
 
 ---
 
@@ -366,6 +381,7 @@ flowchart TD
 
 - JS per page
 - Prefer pre-generated content over JS updates
+- Copy/Paste where needed
 
 ---
 
