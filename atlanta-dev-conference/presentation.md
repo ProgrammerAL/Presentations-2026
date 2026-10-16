@@ -71,10 +71,7 @@ with AL Rodriguez
 # Scenario: Basic, Simple, Small App
 
 - Users sign in to your Web App
-  - Nothing Else
-- Backend "API"
-  - Requests directly through Web App
-  - Maybe Server Side Rendering
+- Backend "API" / Requests directly through Web App, maybe Server Side Rendering
 - Users stored in your own database
 - Auth status stored in cookie with Session GUID, claims kept in database
 ![bg right 80%](presentation-images/simple-app-diagram.svg)
