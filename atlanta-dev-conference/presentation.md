@@ -665,9 +665,10 @@ architecture-beta
 
 # Review
 
+- Establish Trust
 - Limit where tokens can be used
 - Secure your clients
-- Don't let requests get replayed
+
 ---
 
 <style>
