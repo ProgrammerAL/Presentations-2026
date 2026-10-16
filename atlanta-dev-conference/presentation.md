@@ -54,7 +54,6 @@ with AL Rodriguez
 - How to minimize attack surface
 - Ensure Trust between systems
   - Idp, APIs, Clients
-- Note: No Demos
 
 ---
 
