@@ -37,8 +37,10 @@ with AL Rodriguez
 # Shameless Self Promotion
 
 - @ProgrammerAL and https://ProgrammerAL.com
-- Freelance Affiliate at https://globalGlob.dev 
+- Freelance Affiliate for globalGlob(**/*)
   - Index 0 for Dev News
+  - Weekly newsletter:
+    - https://globalGlob.dev/newsletter
 
 ![bg right 80%](presentation-images/presentation_link_qrcode.png)
 
