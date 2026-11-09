@@ -46,7 +46,7 @@ with AL Rodriguez
 
 # Why are we here?
 
-- "Best Practices" of securing Authentication
+- "Best Practices" of securing OAuth Tokens
 - How to minimize attack surface
 - Ensure Trust between systems
   - Idp, APIs, Clients
@@ -67,11 +67,9 @@ with AL Rodriguez
 # Scenario: Basic, Simple, Small App
 
 - Users sign in to your Web App
-  - Nothing Else
-- Backend "API"
-  - Requests directly through Web App
-  - Maybe Server Side Rendering
+- Backend "API" / Requests directly through Web App, maybe Server Side Rendering
 - Users stored in your own database
+- Auth status stored in cookie with Session GUID, claims kept in database
 ![bg right 80%](presentation-images/simple-app-diagram.svg)
 
 <!--
@@ -663,8 +661,45 @@ architecture-beta
 
 # Review
 
+- Establish Trust
 - Limit where tokens can be used
 - Secure your clients
-- Don't let requests get replayed
 
-![bg right 80%](presentation-images/presentation_link_qrcode.png)
+---
+
+<style>
+  /* use on containing element to display images side by side */
+  .inline-images {
+      display: flex;
+      height: 90%; /* control location on y-axis */
+      justify-content: space-between;
+      align-items: center;
+  }
+
+  .inline-text {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      color: var(--h1-color);
+      font-size: 1.6em;
+      font-weight: var(--base-text-weight-semibold, 600);
+  }
+</style>
+
+<div class="inline-text">
+  <p>Content</p>
+  <p>Feedback</p>
+</div>
+
+<div class="inline-images">
+  <div>
+
+![w:500](presentation-images/presentation_link_qrcode.png)
+
+  </div>
+  <div>
+
+![w:500](presentation-images/feedback-qr.png)
+
+  </div>
+</div>
