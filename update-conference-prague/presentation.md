@@ -133,8 +133,7 @@ architecture-beta
 # You Need OAuth!
 
 - Open Standard for Access Delegation
-- Identity Provider (IdP) Service manages User Authentication
-- User Data lives in dedicated service
+- Identity Provider (IdP) - Dedicated service manages user records
 - User needs to sign in to 1+ clients (Single Sign-On)
 - Complex 
   - Multiple services interacting
