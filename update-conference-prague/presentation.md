@@ -526,7 +526,7 @@ Clients MUST prevent Cross-Site Request Forgery (CSRF)...requests to the redirec
 # Attacker Can See Requests Mitigation: 
 ## Use State Parameters: Nonce
 
-- Purpose: Client Security, Ensures ID Token Was for this Login Attempt
+- Purpose: Client Security, Ensures Token Was for this Login Attempt
 - Number Used Once
 - Client generates random string `nonce`, verifies final token includes same value
 
