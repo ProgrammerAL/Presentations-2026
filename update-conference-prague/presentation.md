@@ -25,6 +25,15 @@ with AL Rodriguez
 
 ---
 
+# Why are we here?
+
+- "Best Practices" of securing OAuth Tokens
+- How to minimize attack surface
+- Ensure Trust between systems
+  - Idp, APIs, Clients
+
+---
+
 # Duende Software
 
 - Full Disclosure: They pay me
@@ -41,15 +50,6 @@ with AL Rodriguez
   - Index 0 for Dev News
 
 ![bg right 80%](presentation-images/presentation_link_qrcode.png)
-
----
-
-# Why are we here?
-
-- "Best Practices" of securing OAuth Tokens
-- How to minimize attack surface
-- Ensure Trust between systems
-  - Idp, APIs, Clients
 
 ---
 
