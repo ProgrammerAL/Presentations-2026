@@ -4,7 +4,7 @@ title: Over-Engineering globalGlob.dev: The Bad Ideas that got a 100 Lighthouse 
 paginate: true
 theme: default
 author: AL Rodriguez
-footer: '@ProgrammerAL'
+footer: 'https://globalGlob.dev'
 ---
 
 <style>
@@ -25,20 +25,13 @@ with AL Rodriguez
 
 ---
 
-# Duende Software
-
-- Full Disclosure: They pay me (but I like them anyway)
-  - Customer Success Engineer
-
-![bg right 80%](presentation-images/presentation_link_qrcode.png)
-
----
-
 # Shameless Self Promotion
 
 - @ProgrammerAL and https://ProgrammerAL.com
 - Freelance Affiliate at https://globalGlob.dev 
   - Index 0 for Dev News
+- Customer Success Engineer
+  - Duende Software
 
 ![bg right 80%](presentation-images/presentation_link_qrcode.png)
 
@@ -53,9 +46,11 @@ with AL Rodriguez
 # globalGlob(*\*/\*)
 
 - https://globalGlob.dev
-- Secret: Satire
 - Articles/Videos/Newsletter
 - Deployed December 18, 2025
+- Secret: Satire
+
+![bg right 100%](presentation-images/globalglob-socal-media-images.png)
 
 ---
 
@@ -101,7 +96,7 @@ with AL Rodriguez
 # 2025 - I want to make jokes
 
 - Jokes...on the internet
-- 7 year old idea
+- Can my 7 year old website idea work today?
   - Bad then...great now?
 
 ---
